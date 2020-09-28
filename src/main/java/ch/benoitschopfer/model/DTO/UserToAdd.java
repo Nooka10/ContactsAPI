@@ -1,4 +1,4 @@
-package ch.benoitschopfer.model;
+package ch.benoitschopfer.model.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,17 +8,17 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * LoginOrRegister
+ * UserToAdd
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T14:30:44.095816+02:00[Europe/Paris]")
-public class LoginOrRegister {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
+public class UserToAdd   {
   @JsonProperty("email")
   private String email;
 
   @JsonProperty("password")
   private String password;
 
-  public LoginOrRegister email(String email) {
+  public UserToAdd email(String email) {
     this.email = email;
     return this;
   }
@@ -26,7 +26,7 @@ public class LoginOrRegister {
   /**
    * Get email
    * @return email
-   */
+  */
   @ApiModelProperty(required = true, value = "")
   @NotNull
   @Email
@@ -38,7 +38,7 @@ public class LoginOrRegister {
     this.email = email;
   }
 
-  public LoginOrRegister password(String password) {
+  public UserToAdd password(String password) {
     this.password = password;
     return this;
   }
@@ -46,7 +46,7 @@ public class LoginOrRegister {
   /**
    * Get password
    * @return password
-   */
+  */
   @ApiModelProperty(required = true, value = "")
   @NotNull
   public String getPassword() {
@@ -66,9 +66,9 @@ public class LoginOrRegister {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    LoginOrRegister loginOrRegister = (LoginOrRegister) o;
-    return Objects.equals(this.email, loginOrRegister.email) &&
-           Objects.equals(this.password, loginOrRegister.password);
+    UserToAdd userToAdd = (UserToAdd) o;
+    return Objects.equals(this.email, userToAdd.email) &&
+        Objects.equals(this.password, userToAdd.password);
   }
 
   @Override
@@ -79,7 +79,7 @@ public class LoginOrRegister {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class LoginOrRegister {\n");
+    sb.append("class UserToAdd {\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");

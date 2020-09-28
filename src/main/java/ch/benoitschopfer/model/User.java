@@ -2,6 +2,7 @@ package ch.benoitschopfer.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -18,22 +19,22 @@ import java.util.Objects;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 @Entity
-public class User {
+public class User extends RepresentationModel<User> {
   @JsonProperty("id")
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private BigDecimal id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
 
   @JsonProperty("email")
   @Column(unique = true)
-  @NotNull
-  @Email
-  @Size(min = 3, message = "Email should have at least 3 characters")
+  //@NotNull
+  //@Email
+  //@Size(min = 3, message = "Email should have at least 3 characters")
   private String email;
 
   @JsonProperty("password")
-  @NotNull
-  @Size(min = 3, message = "Password should have at least 3 characters")
+  //@NotNull
+  //@Size(min = 3, message = "Password should have at least 3 characters")
   private String password;
 
   @JsonProperty("contacts")
@@ -42,10 +43,10 @@ public class User {
   private List<Contact> contacts = new ArrayList<>();
 
   @JsonProperty("rights")
-  @NotNull
-  private String rights;
+  // @NotNull
+  private String rights = "user";
 
-  public User id(BigDecimal id) {
+  public User id(long id) {
     this.id = id;
     return this;
   }
@@ -55,12 +56,12 @@ public class User {
    * @return id
    */
   @ApiModelProperty(required = true, value = "")
-  @NotNull
-  public BigDecimal getId() {
+  // @NotNull
+  public long getId() {
     return id;
   }
 
-  public void setId(BigDecimal id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -74,8 +75,8 @@ public class User {
    * @return email
    */
   @ApiModelProperty(required = true, value = "")
-  @NotNull
-  @Email
+  // @NotNull
+  // @Email
   public String getEmail() {
     return email;
   }
@@ -94,7 +95,7 @@ public class User {
    * @return password
   */
   @ApiModelProperty(required = true, value = "")
-  @NotNull
+  // @NotNull
   public String getPassword() {
     return password;
   }
@@ -123,7 +124,7 @@ public class User {
    * @return contacts
    */
   @ApiModelProperty(required = true, value = "")
-  @NotNull
+  // @NotNull
   @Valid
   public List<Contact> getContacts() {
     return contacts;

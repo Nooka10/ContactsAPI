@@ -6,7 +6,7 @@
 package ch.benoitschopfer.controller;
 
 import ch.benoitschopfer.model.User;
-import ch.benoitschopfer.model.UserToUpdate;
+import ch.benoitschopfer.model.DTO.UserToUpdate;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +18,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +51,7 @@ public interface UsersApi {
   @DeleteMapping(
     value = "/users/{id}"
   )
-  default ResponseEntity<Void> deleteUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") Long id) {
+  default ResponseEntity<Void> deleteUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") long id) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
   }
@@ -77,7 +78,7 @@ public interface UsersApi {
     value = "/users/{id}",
     produces = {"application/json"}
   )
-  default ResponseEntity<List<User>> getUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") Long id) {
+  default ResponseEntity<List<User>> getUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") long id) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -156,7 +157,7 @@ public interface UsersApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
-  default ResponseEntity<List<User>> updateUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") Long id,
+  default ResponseEntity<List<User>> updateUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") long id,
                                                 @ApiParam(value = "User to update") @Valid @RequestBody(required = false) UserToUpdate userToUpdate) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {

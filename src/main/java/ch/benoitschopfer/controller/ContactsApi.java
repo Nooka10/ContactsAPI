@@ -6,7 +6,10 @@
 package ch.benoitschopfer.controller;
 
 import ch.benoitschopfer.model.Contact;
-import ch.benoitschopfer.model.*;
+import ch.benoitschopfer.model.DTO.ContactToAdd;
+import ch.benoitschopfer.model.DTO.ContactToUpdate;
+import ch.benoitschopfer.model.DTO.SkillLevelToAdd;
+import ch.benoitschopfer.model.DTO.SkillLevelToUpdate;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -130,7 +134,7 @@ public interface ContactsApi {
   @DeleteMapping(
     value = "/contacts/{id}"
   )
-  default ResponseEntity<Void> deleteContact(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("id") Long id) {
+  default ResponseEntity<Void> deleteContact(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("id") long id) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
   }
@@ -185,7 +189,7 @@ public interface ContactsApi {
     value = "/contacts/{id}",
     produces = {"application/json"}
   )
-  default ResponseEntity<List<Contact>> getContact(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("id") Long id) {
+  default ResponseEntity<List<Contact>> getContact(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("id") long id) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -263,7 +267,7 @@ public interface ContactsApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
-  default ResponseEntity<List<Contact>> updateContact(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("id") Long id,
+  default ResponseEntity<List<Contact>> updateContact(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("id") long id,
                                                       @ApiParam(value = "Contact to update") @Valid @RequestBody(required = false) ContactToUpdate contactToUpdate) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {

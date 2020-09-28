@@ -6,7 +6,7 @@
 package ch.benoitschopfer.controller;
 
 import ch.benoitschopfer.model.User;
-import ch.benoitschopfer.model.UserToAdd;
+import ch.benoitschopfer.model.DTO.UserToAdd;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
@@ -49,7 +48,7 @@ public interface RegisterApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
-  default ResponseEntity<List<User>> register(@ApiParam(value = "A JSON object containing the username and the password of the new user", required = true) @Valid @RequestBody UserToAdd userToAdd) {
+  default ResponseEntity<?> register(@ApiParam(value = "A JSON object containing the username and the password of the new user", required = true) @Valid @RequestBody UserToAdd userToAdd) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

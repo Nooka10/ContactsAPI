@@ -1,4 +1,4 @@
-package ch.benoitschopfer.model;
+package ch.benoitschopfer.model.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
@@ -7,14 +7,38 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * SkillToAdd
+ * SkillToUpdate
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
-public class SkillToAdd   {
+public class SkillToUpdate   {
+  @JsonProperty("id")
+  private long id;
+
   @JsonProperty("name")
   private String name;
 
-  public SkillToAdd name(String name) {
+  public SkillToUpdate id(long id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+  */
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public SkillToUpdate name(String name) {
     this.name = name;
     return this;
   }
@@ -44,20 +68,22 @@ public class SkillToAdd   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SkillToAdd skillToAdd = (SkillToAdd) o;
-    return Objects.equals(this.name, skillToAdd.name);
+    SkillToUpdate skillToUpdate = (SkillToUpdate) o;
+    return Objects.equals(this.id, skillToUpdate.id) &&
+        Objects.equals(this.name, skillToUpdate.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name);
+    return Objects.hash(id, name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SkillToAdd {\n");
+    sb.append("class SkillToUpdate {\n");
 
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();

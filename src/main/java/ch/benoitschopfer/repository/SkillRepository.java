@@ -4,8 +4,6 @@ import ch.benoitschopfer.model.Skill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
-import java.math.BigDecimal;
-
-public interface SkillRepository extends JpaRepository<Skill, BigDecimal>, CrudRepository<Skill, BigDecimal> {
+public interface SkillRepository extends JpaRepository<Skill, Long>, CrudRepository<Skill, Long> {
 
 }

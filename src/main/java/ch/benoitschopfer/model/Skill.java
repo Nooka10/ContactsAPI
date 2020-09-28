@@ -19,8 +19,8 @@ import java.util.Objects;
 public class Skill {
   @JsonProperty("id")
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-private Integer id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+private long id;
 
   @JsonProperty("name")
   @NotNull
@@ -33,7 +33,7 @@ private Integer id;
   @OneToMany(mappedBy = "skill")
   private List<SkillLevel> usersLevels = new ArrayList<>();
 
-  public Skill id(Integer id) {
+  public Skill id(long id) {
     this.id = id;
     return this;
   }
@@ -44,11 +44,11 @@ private Integer id;
    */
   @ApiModelProperty(required = true, value = "")
   @NotNull
-  public Integer getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(long id) {
     this.id = id;
   }
 

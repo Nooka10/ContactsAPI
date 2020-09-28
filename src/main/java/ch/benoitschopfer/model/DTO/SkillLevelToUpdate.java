@@ -1,4 +1,4 @@
-package ch.benoitschopfer.model;
+package ch.benoitschopfer.model.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,9 +14,9 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 public class SkillLevelToUpdate   {
   @JsonProperty("level")
-  private BigDecimal level;
+  private long level;
 
-  public SkillLevelToUpdate level(BigDecimal level) {
+  public SkillLevelToUpdate level(long level) {
     this.level = level;
     return this;
   }
@@ -30,11 +30,11 @@ public class SkillLevelToUpdate   {
 
   @Valid
 
-  public BigDecimal getLevel() {
+  public long getLevel() {
     return level;
   }
 
-  public void setLevel(BigDecimal level) {
+  public void setLevel(long level) {
     this.level = level;
   }
 

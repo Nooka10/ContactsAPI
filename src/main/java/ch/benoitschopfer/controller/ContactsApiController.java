@@ -7,7 +7,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import java.util.Optional;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 @Controller
-@RequestMapping("${openapi.Contacts API.base-path:/api}")
+@RequestMapping("")
 public class ContactsApiController implements ContactsApi {
 
     private final NativeWebRequest request;

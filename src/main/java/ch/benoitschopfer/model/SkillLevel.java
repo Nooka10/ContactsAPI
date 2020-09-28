@@ -17,8 +17,8 @@ import java.util.Objects;
 public class SkillLevel {
   @JsonProperty("id")
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-private Integer id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+private long id;
 
   @JsonProperty("skill")
   @ManyToOne
@@ -26,14 +26,14 @@ private Integer id;
   private Skill skill;
 
   @JsonProperty("level")
-  private BigDecimal level;
+  private long level;
 
   @JsonProperty("skilledContact")
   @ManyToOne
   @JoinColumn
   private Contact skilledContact;
 
-  public SkillLevel id(Integer id) {
+  public SkillLevel id(long id) {
     this.id = id;
     return this;
   }
@@ -44,11 +44,11 @@ private Integer id;
    */
   @ApiModelProperty(required = true, value = "")
   @NotNull
-  public Integer getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -72,7 +72,7 @@ private Integer id;
     this.skill = skill;
   }
 
-  public SkillLevel level(BigDecimal level) {
+  public SkillLevel level(long level) {
     this.level = level;
     return this;
   }
@@ -84,11 +84,11 @@ private Integer id;
   @ApiModelProperty(required = true, value = "")
   @NotNull
   @Valid
-  public BigDecimal getLevel() {
+  public long getLevel() {
     return level;
   }
 
-  public void setLevel(BigDecimal level) {
+  public void setLevel(long level) {
     this.level = level;
   }
 

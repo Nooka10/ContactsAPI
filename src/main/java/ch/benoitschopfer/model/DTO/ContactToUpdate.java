@@ -1,4 +1,4 @@
-package ch.benoitschopfer.model;
+package ch.benoitschopfer.model.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,7 +12,7 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 public class ContactToUpdate   {
   @JsonProperty("id")
-  private Integer id;
+  private long id;
 
   @JsonProperty("firstname")
   private String firstname;
@@ -29,7 +29,7 @@ public class ContactToUpdate   {
   @JsonProperty("mobilephone")
   private String mobilephone;
 
-  public ContactToUpdate id(Integer id) {
+  public ContactToUpdate id(long id) {
     this.id = id;
     return this;
   }
@@ -42,11 +42,11 @@ public class ContactToUpdate   {
   @NotNull
 
 
-  public Integer getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(long id) {
     this.id = id;
   }
 

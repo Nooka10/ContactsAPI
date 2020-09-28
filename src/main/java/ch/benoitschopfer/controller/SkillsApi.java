@@ -6,8 +6,8 @@
 package ch.benoitschopfer.controller;
 
 import ch.benoitschopfer.model.Skill;
-import ch.benoitschopfer.model.SkillToAdd;
-import ch.benoitschopfer.model.SkillToUpdate;
+import ch.benoitschopfer.model.DTO.SkillToAdd;
+import ch.benoitschopfer.model.DTO.SkillToUpdate;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

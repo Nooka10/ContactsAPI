@@ -1,5 +1,6 @@
-package ch.benoitschopfer.model;
+package ch.benoitschopfer.model.DTO;
 
+import ch.benoitschopfer.model.Skill;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -17,7 +18,7 @@ public class SkillLevelToAdd   {
   private Skill skill;
 
   @JsonProperty("level")
-  private BigDecimal level;
+  private long level;
 
   public SkillLevelToAdd skill(Skill skill) {
     this.skill = skill;
@@ -41,7 +42,7 @@ public class SkillLevelToAdd   {
     this.skill = skill;
   }
 
-  public SkillLevelToAdd level(BigDecimal level) {
+  public SkillLevelToAdd level(long level) {
     this.level = level;
     return this;
   }
@@ -55,11 +56,11 @@ public class SkillLevelToAdd   {
 
   @Valid
 
-  public BigDecimal getLevel() {
+  public long getLevel() {
     return level;
   }
 
-  public void setLevel(BigDecimal level) {
+  public void setLevel(long level) {
     this.level = level;
   }
 

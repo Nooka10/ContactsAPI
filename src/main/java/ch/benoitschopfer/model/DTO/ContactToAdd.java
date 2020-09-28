@@ -1,8 +1,9 @@
-package ch.benoitschopfer.model;
+package ch.benoitschopfer.model.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -37,8 +38,6 @@ public class ContactToAdd   {
   */
   @ApiModelProperty(required = true, value = "")
   @NotNull
-
-
   public String getFirstname() {
     return firstname;
   }
@@ -58,8 +57,6 @@ public class ContactToAdd   {
   */
   @ApiModelProperty(required = true, value = "")
   @NotNull
-
-
   public String getLastname() {
     return lastname;
   }
@@ -78,8 +75,6 @@ public class ContactToAdd   {
    * @return address
   */
   @ApiModelProperty(value = "")
-
-
   public String getAddress() {
     return address;
   }
@@ -99,8 +94,7 @@ public class ContactToAdd   {
   */
   @ApiModelProperty(required = true, value = "")
   @NotNull
-
-@javax.validation.constraints.Email
+  @Email
   public String getEmail() {
     return email;
   }
@@ -119,8 +113,6 @@ public class ContactToAdd   {
    * @return mobilephone
   */
   @ApiModelProperty(value = "")
-
-
   public String getMobilephone() {
     return mobilephone;
   }
@@ -155,7 +147,6 @@ public class ContactToAdd   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ContactToAdd {\n");
-
     sb.append("    firstname: ").append(toIndentedString(firstname)).append("\n");
     sb.append("    lastname: ").append(toIndentedString(lastname)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");

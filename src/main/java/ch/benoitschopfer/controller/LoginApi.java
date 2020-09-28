@@ -6,7 +6,7 @@
 package ch.benoitschopfer.controller;
 
 import ch.benoitschopfer.model.User;
-import ch.benoitschopfer.model.UserToAdd;
+import ch.benoitschopfer.model.DTO.UserToAdd;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
