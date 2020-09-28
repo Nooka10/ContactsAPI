@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,14 +26,14 @@ public class User extends RepresentationModel<User> {
 
   @JsonProperty("email")
   @Column(unique = true)
-  //@NotNull
-  //@Email
-  //@Size(min = 3, message = "Email should have at least 3 characters")
+  @NotNull
+  @Email
+  @Size(min = 3, message = "Email should have at least 3 characters")
   private String email;
 
   @JsonProperty("password")
-  //@NotNull
-  //@Size(min = 3, message = "Password should have at least 3 characters")
+  @NotNull
+  @Size(min = 3, message = "Password should have at least 3 characters")
   private String password;
 
   @JsonProperty("contacts")
@@ -43,7 +42,7 @@ public class User extends RepresentationModel<User> {
   private List<Contact> contacts = new ArrayList<>();
 
   @JsonProperty("rights")
-  // @NotNull
+  @NotNull
   private String rights = "user";
 
   public User id(long id) {
@@ -56,7 +55,7 @@ public class User extends RepresentationModel<User> {
    * @return id
    */
   @ApiModelProperty(required = true, value = "")
-  // @NotNull
+  @NotNull
   public long getId() {
     return id;
   }
@@ -75,8 +74,8 @@ public class User extends RepresentationModel<User> {
    * @return email
    */
   @ApiModelProperty(required = true, value = "")
-  // @NotNull
-  // @Email
+  @NotNull
+  @Email
   public String getEmail() {
     return email;
   }
@@ -95,7 +94,7 @@ public class User extends RepresentationModel<User> {
    * @return password
   */
   @ApiModelProperty(required = true, value = "")
-  // @NotNull
+  @NotNull
   public String getPassword() {
     return password;
   }
@@ -124,7 +123,7 @@ public class User extends RepresentationModel<User> {
    * @return contacts
    */
   @ApiModelProperty(required = true, value = "")
-  // @NotNull
+  @NotNull
   @Valid
   public List<Contact> getContacts() {
     return contacts;
@@ -179,7 +178,6 @@ public class User extends RepresentationModel<User> {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class User {\n");
-
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
@@ -12,6 +13,8 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 public class SkillToAdd   {
   @JsonProperty("name")
+  @NotNull
+  @Size(min = 3, message = "Name should have at least 3 characters")
   private String name;
 
   public SkillToAdd name(String name) {
@@ -25,8 +28,6 @@ public class SkillToAdd   {
   */
   @ApiModelProperty(example = "SpringBoot", required = true, value = "")
   @NotNull
-
-
   public String getName() {
     return name;
   }
@@ -57,7 +58,6 @@ public class SkillToAdd   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SkillToAdd {\n");
-
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();

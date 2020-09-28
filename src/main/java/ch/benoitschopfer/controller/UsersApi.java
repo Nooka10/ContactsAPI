@@ -5,9 +5,11 @@
  */
 package ch.benoitschopfer.controller;
 
+import ch.benoitschopfer.model.DTO.UserToAddOrUpdate;
 import ch.benoitschopfer.model.User;
-import ch.benoitschopfer.model.DTO.UserToUpdate;
 import io.swagger.annotations.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
@@ -32,53 +30,51 @@ public interface UsersApi {
   }
 
   /**
-   * DELETE /users/{id} : Delete an existing user
+   * DELETE /users/{id} : Delete an existing user.
    * Delete the connected user. Only an admin can delete other user than himself.
    *
-   * @param id Id of the user to fetch (required)
-   * @return User succesfully deleted (status code 200)
-   * or User not found (status code 404)
+   * @param id Id of the user to delete (required).
+   * @return User succesfully deleted (status code 204) or User not found (status code 404).
    */
-  @ApiOperation(value = "Delete an existing user", nickname = "deleteUser", notes = "Delete the connected user. Only an admin can delete other user than himself.", authorizations = {
+  @ApiOperation(value = "Delete an existing user.", nickname = "deleteUser", notes = "Delete the connected user. Only an admin can delete other user than himself.", authorizations = {
     @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)"),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users)")
+      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
   }, tags = {"users",})
   @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "User succesfully deleted"),
-    @ApiResponse(code = 404, message = "User not found")})
+    @ApiResponse(code = 204, message = "User succesfully deleted."),
+    @ApiResponse(code = 404, message = "User not found.")})
   @DeleteMapping(
     value = "/users/{id}"
   )
-  default ResponseEntity<Void> deleteUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") long id) {
+  default ResponseEntity<Void> deleteUser(@ApiParam(value = "Id of the user to delete.", required = true) @PathVariable("id") long id) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
   }
 
 
   /**
-   * GET /users/{id} : Get user by id
-   * Returns the user corresponding to the received name. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin
+   * GET /users/{id} : Get user by id.
+   * Returns the user corresponding to the received id. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.
    *
-   * @param id Id of the user to fetch (required)
-   * @return search results matching criteria (status code 200)
-   * or bad input parameter (status code 400)
+   * @param id Id of the user to fetch (required).
+   * @return search results matching criteria (status code 200) or bad input parameter (status code 400).
    */
-  @ApiOperation(value = "Get user by id", nickname = "getUser", notes = "Returns the user corresponding to the received name. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin", response = User.class, responseContainer = "List", authorizations = {
+  @ApiOperation(value = "Get user by id.", nickname = "getUser", notes = "Returns the user corresponding to the received name. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.", response = User.class, authorizations = {
     @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)"),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users)")
+      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
   }, tags = {"users",})
   @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "search results matching criteria", response = User.class, responseContainer = "List"),
-    @ApiResponse(code = 400, message = "bad input parameter")})
+    @ApiResponse(code = 200, message = "The user corresponding to the received id.", response = User.class),
+    @ApiResponse(code = 400, message = "Bad input parameter.")})
   @GetMapping(
     value = "/users/{id}",
     produces = {"application/json"}
   )
-  default ResponseEntity<List<User>> getUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") long id) {
+  default ResponseEntity<User> getUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") long id) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -95,29 +91,24 @@ public interface UsersApi {
 
   /**
    * GET /users : Get all users
-   * By passing in the appropriate options, admins can search for specifics users in the system
+   * By passing in the appropriate options, admins can search for specifics users in the system.
    *
-   * @param username Returns all users whose username contains the received string (optional)
-   * @param skip     Number of records to skip for pagination (optional)
-   * @param limit    Maximum number of records to return (optional)
-   * @return Search results matching criteria (status code 200)
-   * or bad input parameter (status code 400)
+   * @param email Returns all users whose email contains the received string (optional).
+   * @return Every users whose email contains the received string (status code 200) or bad input parameter (status code 400).
    */
-  @ApiOperation(value = "Get all users", nickname = "getUsers", notes = "By passing in the appropriate options, admins can search for specifics users in the system", response = User.class, responseContainer = "List", authorizations = {
+  @ApiOperation(value = "Get all users.", nickname = "getUsers", notes = "By passing in the appropriate options, admins can search for specifics users in the system.", response = User.class, responseContainer = "List", authorizations = {
     @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users)")
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
   }, tags = {"users",})
   @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "Search results matching criteria", response = User.class, responseContainer = "List"),
-    @ApiResponse(code = 400, message = "bad input parameter")})
+    @ApiResponse(code = 200, message = "Every users whose email contains the received string.", response = User.class, responseContainer = "List"),
+    @ApiResponse(code = 400, message = "bad input parameter.")})
   @GetMapping(
     value = "/users",
     produces = {"application/json"}
   )
-  default ResponseEntity<List<User>> getUsers(@ApiParam(value = "Returns all users whose username contains the received string") @Valid @RequestParam(value = "username", required = false) String username,
-                                              @Min(0) @ApiParam(value = "Number of records to skip for pagination") @Valid @RequestParam(value = "skip", required = false) Integer skip,
-                                              @Min(0) @Max(50) @ApiParam(value = "Maximum number of records to return") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+  default ResponseEntity<Page<User>> getUsers(@ApiParam(value = "Returns all users whose email contains the received string.") @Valid @RequestParam(value = "email", required = false) String email, Pageable Pageable) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -133,32 +124,30 @@ public interface UsersApi {
 
 
   /**
-   * PUT /users/{id} : Update an existing user
-   * Update the connected user. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin
+   * PUT /users/{id} : Update an existing user.
+   * Update the connected user. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.
    *
-   * @param id           Id of the user to fetch (required)
-   * @param userToUpdate User to update (optional)
-   * @return User succesfully updated (status code 200)
-   * or Invalid user supplied (status code 400)
-   * or User not found (status code 404)
+   * @param id           Id of the user to update (required).
+   * @param userToAddOrUpdate User to update (optional).
+   * @return User succesfully updated (status code 200) or Invalid user supplied (status code 400) or User not found (status code 404).
    */
-  @ApiOperation(value = "Update an existing user", nickname = "updateUser", notes = "Update the connected user. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin", response = User.class, responseContainer = "List", authorizations = {
+  @ApiOperation(value = "Update an existing user.", nickname = "updateUser", notes = "Update the connected user. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.", response = User.class, authorizations = {
     @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)"),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users)")
+      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
   }, tags = {"users",})
   @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "User succesfully updated", response = User.class, responseContainer = "List"),
-    @ApiResponse(code = 400, message = "Invalid user supplied"),
-    @ApiResponse(code = 404, message = "User not found")})
+    @ApiResponse(code = 200, message = "User succesfully updated.", response = User.class, responseContainer = "List"),
+    @ApiResponse(code = 400, message = "Invalid user supplied."),
+    @ApiResponse(code = 404, message = "User not found.")})
   @PutMapping(
     value = "/users/{id}",
     produces = {"application/json"},
     consumes = {"application/json"}
   )
-  default ResponseEntity<List<User>> updateUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") long id,
-                                                @ApiParam(value = "User to update") @Valid @RequestBody(required = false) UserToUpdate userToUpdate) {
+  default ResponseEntity<User> updateUser(@ApiParam(value = "Id of the user to update.", required = true) @PathVariable("id") long id,
+                                          @ApiParam(value = "User to update.") @RequestBody(required = false) UserToAddOrUpdate userToAddOrUpdate) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -15,9 +17,12 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 public class SkillLevelToAdd   {
   @JsonProperty("skill")
+  @Valid
   private Skill skill;
 
   @JsonProperty("level")
+  @Min(1)
+  @Max(10)
   private long level;
 
   public SkillLevelToAdd skill(Skill skill) {
@@ -31,9 +36,7 @@ public class SkillLevelToAdd   {
   */
   @ApiModelProperty(required = true, value = "")
   @NotNull
-
   @Valid
-
   public Skill getSkill() {
     return skill;
   }
@@ -53,9 +56,7 @@ public class SkillLevelToAdd   {
   */
   @ApiModelProperty(required = true, value = "")
   @NotNull
-
   @Valid
-
   public long getLevel() {
     return level;
   }
@@ -87,7 +88,6 @@ public class SkillLevelToAdd   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SkillLevelToAdd {\n");
-
     sb.append("    skill: ").append(toIndentedString(skill)).append("\n");
     sb.append("    level: ").append(toIndentedString(level)).append("\n");
     sb.append("}");

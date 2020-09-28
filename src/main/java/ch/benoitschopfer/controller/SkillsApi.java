@@ -5,9 +5,9 @@
  */
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.Skill;
 import ch.benoitschopfer.model.DTO.SkillToAdd;
 import ch.benoitschopfer.model.DTO.SkillToUpdate;
+import ch.benoitschopfer.model.Skill;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,9 +25,9 @@ import java.util.Optional;
 @Api(value = "skills", description = "the skills API")
 public interface SkillsApi {
 
-    default Optional<NativeWebRequest> getRequest() {
-        return Optional.empty();
-    }
+  default Optional<NativeWebRequest> getRequest() {
+    return Optional.empty();
+  }
 
   /**
    * POST /skills : Adds a new skill
@@ -38,50 +38,50 @@ public interface SkillsApi {
    * or Invalid input, received object is invalid (status code 400)
    * or This skill is already in the system (status code 409)
    */
-    @ApiOperation(value = "Adds a new skill", nickname = "addSkill", notes = "Adds a new skill to the system. The connected user must be an admin", response = Skill.class, responseContainer = "List", authorizations = {
-      @Authorization(value = "oauth2", scopes = {
-        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users)")
-      })
-    }, tags = {"skills",})
-    @ApiResponses(value = {
-      @ApiResponse(code = 201, message = "Skill created", response = Skill.class, responseContainer = "List"),
-      @ApiResponse(code = 400, message = "Invalid input, received object is invalid"),
-      @ApiResponse(code = 409, message = "This skill is already in the system")})
-    @PostMapping(
-      value = "/skills",
-      produces = {"application/json"},
-      consumes = {"application/json"}
-    )
-    default ResponseEntity<List<Skill>> addSkill(@ApiParam(value = "Skill to add") @Valid @RequestBody(required = false) SkillToAdd skillToAdd) {
-      getRequest().ifPresent(request -> {
-        for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-          if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-            String exampleString = "{ \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }";
-            ApiUtil.setExampleResponse(request, "application/json", exampleString);
-            break;
-          }
+  @ApiOperation(value = "Adds a new skill", nickname = "addSkill", notes = "Adds a new skill to the system. The connected user must be an admin", response = Skill.class, responseContainer = "List", authorizations = {
+    @Authorization(value = "oauth2", scopes = {
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+    })
+  }, tags = {"skills",})
+  @ApiResponses(value = {
+    @ApiResponse(code = 201, message = "Skill created", response = Skill.class, responseContainer = "List"),
+    @ApiResponse(code = 400, message = "Invalid input, received object is invalid"),
+    @ApiResponse(code = 409, message = "This skill is already in the system")})
+  @PostMapping(
+    value = "/skills",
+    produces = {"application/json"},
+    consumes = {"application/json"}
+  )
+  default ResponseEntity<List<Skill>> addSkill(@ApiParam(value = "Skill to add") @Valid @RequestBody(required = false) SkillToAdd skillToAdd) {
+    getRequest().ifPresent(request -> {
+      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+          String exampleString = "{ \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }";
+          ApiUtil.setExampleResponse(request, "application/json", exampleString);
+          break;
         }
-      });
-      return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+      }
+    });
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
-    }
+  }
 
 
   /**
    * DELETE /skills/{name} : Delete an existing skill
-     * Delete an existing skill. The connected user must be an admin
-     *
-     * @param name Name of the skill to fetch (required)
-   * @return Skill succesfully deleted (status code 200)
-   *         or Skill not found (status code 404)
+   * Delete an existing skill. The connected user must be an admin
+   *
+   * @param name Name of the skill to fetch (required)
+   * @return Skill succesfully deleted (status code 204)
+   * or Skill not found (status code 404)
    */
   @ApiOperation(value = "Delete an existing skill", nickname = "deleteSkill", notes = "Delete an existing skill. The connected user must be an admin", authorizations = {
     @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users)")
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
   }, tags = {"skills",})
   @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "Skill succesfully deleted"),
+    @ApiResponse(code = 204, message = "Skill succesfully deleted"),
     @ApiResponse(code = 404, message = "Skill not found")})
   @DeleteMapping(
     value = "/skills/{name}"
@@ -94,21 +94,21 @@ public interface SkillsApi {
 
   /**
    * GET /skills/{name} : Get skill by name
-     * Returns the skill corresponding to the received name
-     *
-     * @param name Name of the skill to fetch (required)
+   * Returns the skill corresponding to the received name
+   *
+   * @param name Name of the skill to fetch (required)
    * @return search results matching criteria (status code 200)
-   *         or bad input parameter (status code 400)
+   * or bad input parameter (status code 400)
    */
   @ApiOperation(value = "Get skill by name", nickname = "getSkill", notes = "Returns the skill corresponding to the received name", response = Skill.class, responseContainer = "List", authorizations = {
     @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)"),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users)")
+      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
   }, tags = {"skills",})
   @ApiResponses(value = {
     @ApiResponse(code = 200, message = "search results matching criteria", response = Skill.class, responseContainer = "List"),
-    @ApiResponse(code = 400, message = "bad input parameter")})
+    @ApiResponse(code = 400, message = "bad input parameter.")})
   @GetMapping(
     value = "/skills/{name}",
     produces = {"application/json"}
@@ -134,17 +134,17 @@ public interface SkillsApi {
    *
    * @param name Returns all skills whose name contains the received string (optional)
    * @return Search results matching criteria (status code 200)
-   *         or bad input parameter (status code 400)
+   * or bad input parameter (status code 400)
    */
   @ApiOperation(value = "Get all skills", nickname = "getSkills", notes = "By passing in the appropriate options, you can search for specifics skills in the system", response = Skill.class, responseContainer = "List", authorizations = {
     @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)"),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users)")
+      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
   }, tags = {"skills",})
   @ApiResponses(value = {
     @ApiResponse(code = 200, message = "Search results matching criteria", response = Skill.class, responseContainer = "List"),
-    @ApiResponse(code = 400, message = "bad input parameter")})
+    @ApiResponse(code = 400, message = "bad input parameter.")})
   @GetMapping(
     value = "/skills",
     produces = {"application/json"}
@@ -168,15 +168,15 @@ public interface SkillsApi {
    * PUT /skills/{name} : Update an existing skill
    * Update an existing skill. The connected user must be an admin
    *
-   * @param name Name of the skill to fetch (required)
+   * @param name          Name of the skill to fetch (required)
    * @param skillToUpdate Skill to update (optional)
    * @return skill succesfully updated (status code 200)
-   *         or Invalid skill supplied (status code 400)
-   *         or Skill not found (status code 404)
+   * or Invalid skill supplied (status code 400)
+   * or Skill not found (status code 404)
    */
   @ApiOperation(value = "Update an existing skill", nickname = "updateSkill", notes = "Update an existing skill. The connected user must be an admin", response = Skill.class, responseContainer = "List", authorizations = {
     @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users)")
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
   }, tags = {"skills",})
   @ApiResponses(value = {

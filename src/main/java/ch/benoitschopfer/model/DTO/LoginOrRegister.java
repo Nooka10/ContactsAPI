@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
@@ -13,9 +14,14 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T14:30:44.095816+02:00[Europe/Paris]")
 public class LoginOrRegister {
   @JsonProperty("email")
+  @NotNull
+  @Email
+  @Size(min = 3, message = "Email should have at least 3 characters")
   private String email;
 
   @JsonProperty("password")
+  @NotNull
+  @Size(min = 3, message = "Password should have at least 3 characters")
   private String password;
 
   public LoginOrRegister email(String email) {

@@ -5,8 +5,8 @@
  */
 package ch.benoitschopfer.controller;
 
+import ch.benoitschopfer.model.DTO.UserToAddOrUpdate;
 import ch.benoitschopfer.model.User;
-import ch.benoitschopfer.model.DTO.UserToAdd;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,7 +32,7 @@ public interface RegisterApi {
    * POST /register : Register a new user
    * Register a new user in the system and logs him in
    *
-   * @param userToAdd A JSON object containing the username and the password of the new user (required)
+   * @param userToAddOrUpdate A JSON object containing the username and the password of the new user (required)
    * @return User successfully created (status code 201)
    * or Invalid input, received object is invalid (status code 400)
    * or This email adress is already used (status code 409)
@@ -48,7 +48,7 @@ public interface RegisterApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
-  default ResponseEntity<?> register(@ApiParam(value = "A JSON object containing the username and the password of the new user", required = true) @Valid @RequestBody UserToAdd userToAdd) {
+  default ResponseEntity<?> register(@ApiParam(value = "A JSON object containing the username and the password of the new user", required = true) @Valid @RequestBody UserToAddOrUpdate userToAddOrUpdate) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

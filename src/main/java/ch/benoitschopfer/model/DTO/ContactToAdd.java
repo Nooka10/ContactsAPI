@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
@@ -13,15 +14,21 @@ import java.util.Objects;
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 public class ContactToAdd   {
   @JsonProperty("firstname")
+  @NotNull
+  @Size(min = 3, message = "Firstname should have at least 3 characters")
   private String firstname;
 
   @JsonProperty("lastname")
+  @NotNull
+  @Size(min = 3, message = "Lastname should have at least 3 characters")
   private String lastname;
 
   @JsonProperty("address")
   private String address;
 
   @JsonProperty("email")
+  @NotNull
+  @Email
   private String email;
 
   @JsonProperty("mobilephone")

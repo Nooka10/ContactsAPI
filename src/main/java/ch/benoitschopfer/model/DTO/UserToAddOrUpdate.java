@@ -5,20 +5,26 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
- * UserToAdd
+ * UserToAddOrUpdate
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
-public class UserToAdd   {
+public class UserToAddOrUpdate {
   @JsonProperty("email")
+  @NotNull
+  @Email
+  @Size(min = 3, message = "Email should have at least 3 characters")
   private String email;
 
   @JsonProperty("password")
+  @NotNull
+  @Size(min = 3, message = "Password should have at least 3 characters")
   private String password;
 
-  public UserToAdd email(String email) {
+  public UserToAddOrUpdate email(String email) {
     this.email = email;
     return this;
   }
@@ -38,7 +44,7 @@ public class UserToAdd   {
     this.email = email;
   }
 
-  public UserToAdd password(String password) {
+  public UserToAddOrUpdate password(String password) {
     this.password = password;
     return this;
   }
@@ -66,9 +72,9 @@ public class UserToAdd   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserToAdd userToAdd = (UserToAdd) o;
-    return Objects.equals(this.email, userToAdd.email) &&
-        Objects.equals(this.password, userToAdd.password);
+    UserToAddOrUpdate userToAddOrUpdate = (UserToAddOrUpdate) o;
+    return Objects.equals(this.email, userToAddOrUpdate.email) &&
+           Objects.equals(this.password, userToAddOrUpdate.password);
   }
 
   @Override
@@ -79,7 +85,7 @@ public class UserToAdd   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserToAdd {\n");
+    sb.append("class UserToAddOrUpdate {\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");

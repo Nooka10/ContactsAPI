@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.2
+  version: 1.0.0
 servers:
   - url: http://localhost:8080/api
 security:
@@ -112,7 +112,7 @@ paths:
             type: string
       responses:
         200:
-          description: Search results matching criteria
+          description: Every contacts of the connected user and matching criterias
           content:
             application/json:
               schema:
@@ -169,7 +169,7 @@ paths:
       operationId: getContact
       responses:
         200:
-          description: search results matching criteria
+          description: Returns the contact corresponding to the received id of the connected user
           content:
             application/json:
               schema:
@@ -214,7 +214,7 @@ paths:
       description: Delete an existing contact of the connected user
       operationId: deleteContact
       responses:
-        200:
+        204:
           description: contact succesfully deleted
         404:
           description: Contact not found
@@ -301,7 +301,7 @@ paths:
       description: Delete a skill of an existing contact of the connected user
       operationId: deleteContactSkill
       responses:
-        200:
+        204:
           description: contact's skill succesfully deleted
         404:
           description: Contact not found
@@ -325,7 +325,7 @@ paths:
             type: string
       responses:
         200:
-          description: Search results matching criteria
+          description: Returns all skills whose name contains the received string
           content:
             application/json:
               schema:
@@ -381,7 +381,7 @@ paths:
       operationId: getSkill
       responses:
         200:
-          description: search results matching criteria
+          description: Returns the skill corresponding to the received name
           content:
             application/json:
               schema:
@@ -426,7 +426,7 @@ paths:
       description: Delete an existing skill. The connected user must be an admin
       operationId: deleteSkill
       responses:
-        200:
+        204:
           description: Skill succesfully deleted
         404:
           description: Skill not found
@@ -449,30 +449,9 @@ paths:
           explode: true
           schema:
             type: string
-        - name: skip
-          in: query
-          description: Number of records to skip for pagination
-          required: false
-          style: form
-          explode: true
-          schema:
-            minimum: 0
-            type: integer
-            format: int32
-        - name: limit
-          in: query
-          description: Maximum number of records to return
-          required: false
-          style: form
-          explode: true
-          schema:
-            maximum: 5E+1
-            minimum: 0
-            type: integer
-            format: int32
       responses:
         200:
-          description: Search results matching criteria
+          description: Returns all users whose username contains the received string
           content:
             application/json:
               schema:
@@ -502,7 +481,7 @@ paths:
       operationId: getUser
       responses:
         200:
-          description: search results matching criteria
+          description: the user corresponding to the received id
           content:
             application/json:
               schema:
@@ -524,7 +503,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UserToUpdate"
+              $ref: "#/components/schemas/UserToAddOrUpdate"
       responses:
         200:
           description: User succesfully updated
@@ -547,7 +526,7 @@ paths:
       description: Delete the connected user. Only an admin can delete other user than himself.
       operationId: deleteUser
       responses:
-        200:
+        204:
           description: User succesfully deleted
         404:
           description: User not found
@@ -715,7 +694,7 @@ components:
           format: email
         password:
           type: string
-    UserToUpdate:
+    UserToAddOrUpdate:
       type: object
       required:
         - id
@@ -728,10 +707,6 @@ components:
           format: email
         password:
           type: string
-        contacts:
-          type: array
-          items:
-            $ref: "#/components/schemas/Contact"
     User:
       type: object
       required:
@@ -764,5 +739,5 @@ components:
           authorizationUrl: localhost:3000/oauth/authorize
           tokenUrl: localhost:3000/oauth/token
           scopes:
-            user: Grants read/write access to user resources (his user info, his contacts and their skills)
+            user: Grants read/write access to user resources (his user info, his contacts and their skills).
             admin: Grants read and write access to anything (his/others contacts and their skills, skills, users)
