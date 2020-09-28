@@ -9,10 +9,14 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
- * ContactToAdd
+ * ContactUpdate
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
-public class ContactToAdd   {
+public class ContactUpdate {
+  @JsonProperty("id")
+  @NotNull
+  private long id;
+
   @JsonProperty("firstname")
   @NotNull
   @Size(min = 3, message = "Firstname should have at least 3 characters")
@@ -34,7 +38,28 @@ public class ContactToAdd   {
   @JsonProperty("mobilephone")
   private String mobilephone;
 
-  public ContactToAdd firstname(String firstname) {
+  public ContactUpdate id(long id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+  */
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
+
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public ContactUpdate firstname(String firstname) {
     this.firstname = firstname;
     return this;
   }
@@ -43,8 +68,9 @@ public class ContactToAdd   {
    * Get firstname
    * @return firstname
   */
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+  @ApiModelProperty(value = "")
+
+
   public String getFirstname() {
     return firstname;
   }
@@ -53,7 +79,7 @@ public class ContactToAdd   {
     this.firstname = firstname;
   }
 
-  public ContactToAdd lastname(String lastname) {
+  public ContactUpdate lastname(String lastname) {
     this.lastname = lastname;
     return this;
   }
@@ -62,8 +88,9 @@ public class ContactToAdd   {
    * Get lastname
    * @return lastname
   */
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
+  @ApiModelProperty(value = "")
+
+
   public String getLastname() {
     return lastname;
   }
@@ -72,7 +99,7 @@ public class ContactToAdd   {
     this.lastname = lastname;
   }
 
-  public ContactToAdd address(String address) {
+  public ContactUpdate address(String address) {
     this.address = address;
     return this;
   }
@@ -82,6 +109,8 @@ public class ContactToAdd   {
    * @return address
   */
   @ApiModelProperty(value = "")
+
+
   public String getAddress() {
     return address;
   }
@@ -90,7 +119,7 @@ public class ContactToAdd   {
     this.address = address;
   }
 
-  public ContactToAdd email(String email) {
+  public ContactUpdate email(String email) {
     this.email = email;
     return this;
   }
@@ -99,9 +128,9 @@ public class ContactToAdd   {
    * Get email
    * @return email
   */
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
-  @Email
+  @ApiModelProperty(value = "")
+
+@Email
   public String getEmail() {
     return email;
   }
@@ -110,7 +139,7 @@ public class ContactToAdd   {
     this.email = email;
   }
 
-  public ContactToAdd mobilephone(String mobilephone) {
+  public ContactUpdate mobilephone(String mobilephone) {
     this.mobilephone = mobilephone;
     return this;
   }
@@ -120,6 +149,8 @@ public class ContactToAdd   {
    * @return mobilephone
   */
   @ApiModelProperty(value = "")
+
+
   public String getMobilephone() {
     return mobilephone;
   }
@@ -137,23 +168,26 @@ public class ContactToAdd   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ContactToAdd contactToAdd = (ContactToAdd) o;
-    return Objects.equals(this.firstname, contactToAdd.firstname) &&
-        Objects.equals(this.lastname, contactToAdd.lastname) &&
-        Objects.equals(this.address, contactToAdd.address) &&
-        Objects.equals(this.email, contactToAdd.email) &&
-        Objects.equals(this.mobilephone, contactToAdd.mobilephone);
+    ContactUpdate contactUpdate = (ContactUpdate) o;
+    return Objects.equals(this.id, contactUpdate.id) &&
+           Objects.equals(this.firstname, contactUpdate.firstname) &&
+           Objects.equals(this.lastname, contactUpdate.lastname) &&
+           Objects.equals(this.address, contactUpdate.address) &&
+           Objects.equals(this.email, contactUpdate.email) &&
+           Objects.equals(this.mobilephone, contactUpdate.mobilephone);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstname, lastname, address, email, mobilephone);
+    return Objects.hash(id, firstname, lastname, address, email, mobilephone);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ContactToAdd {\n");
+    sb.append("class ContactUpdate {\n");
+
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    firstname: ").append(toIndentedString(firstname)).append("\n");
     sb.append("    lastname: ").append(toIndentedString(lastname)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");

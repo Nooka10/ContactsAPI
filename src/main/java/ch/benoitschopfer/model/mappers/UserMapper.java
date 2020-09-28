@@ -1,12 +1,12 @@
 package ch.benoitschopfer.model.mappers;
 
-import ch.benoitschopfer.model.DTO.UserToAddOrUpdate;
+import ch.benoitschopfer.model.DTO.UserAddOrUpdate;
 import ch.benoitschopfer.model.User;
 import org.mapstruct.Mapper;
 
 @Mapper
 public interface UserMapper {
-  User userToAddOrUpdateToUser(UserToAddOrUpdate userToAddOrUpdate);
+  User userAddOrUpdateToUser(UserAddOrUpdate userAddOrUpdate);
 
-  UserToAddOrUpdate userToUserToAddOrUpdate(User userToAdd);
+  UserAddOrUpdate userToUserAddOrUpdate(User userToAdd);
 }

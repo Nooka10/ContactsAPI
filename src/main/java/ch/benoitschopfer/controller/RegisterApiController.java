@@ -1,6 +1,6 @@
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.DTO.UserToAddOrUpdate;
+import ch.benoitschopfer.model.DTO.UserAddOrUpdate;
 import ch.benoitschopfer.model.User;
 import ch.benoitschopfer.model.mappers.UserMapper;
 import ch.benoitschopfer.repository.UserRepository;
@@ -33,7 +33,7 @@ public class RegisterApiController implements RegisterApi {
   @Autowired
   UserRepository userRepository;
 
-  @org.springframework.beans.factory.annotation.Autowired
+  @Autowired
   public RegisterApiController(NativeWebRequest request) {
     this.request = request;
   }
@@ -44,18 +44,18 @@ public class RegisterApiController implements RegisterApi {
   }
 
   @Override
-  public ResponseEntity<?> register(@Valid UserToAddOrUpdate userToAddOrUpdate) {
+  public ResponseEntity<?> register(@Valid UserAddOrUpdate userAddOrUpdate) {
     try {
-      User savedUser = userRepository.save(userMapper.userToAddOrUpdateToUser(userToAddOrUpdate));
+      User savedUser = userRepository.save(userMapper.userAddOrUpdateToUser(userAddOrUpdate));
 
       String location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/users/{id}").buildAndExpand(savedUser.getId()).toUriString();
-      EntityModel<User> UserResource = new EntityModel<>(savedUser, new Link(location, "self"));
+      EntityModel<User> UserResource = new EntityModel<>(savedUser, Link.of(location, "self"));
 
       return ResponseEntity
         .created(new URI(location))
         .body(UserResource);
     } catch (URISyntaxException e) {
-      return ResponseEntity.badRequest().body("Unable to create " + userToAddOrUpdate);
+      return ResponseEntity.badRequest().body("Unable to create " + userAddOrUpdate);
     }
   }
 }

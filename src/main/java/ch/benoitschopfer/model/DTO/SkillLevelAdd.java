@@ -8,14 +8,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * SkillLevelToAdd
+ * SkillLevelAdd
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
-public class SkillLevelToAdd   {
+public class SkillLevelAdd {
   @JsonProperty("skill")
   @Valid
   private Skill skill;
@@ -25,7 +24,7 @@ public class SkillLevelToAdd   {
   @Max(10)
   private long level;
 
-  public SkillLevelToAdd skill(Skill skill) {
+  public SkillLevelAdd skill(Skill skill) {
     this.skill = skill;
     return this;
   }
@@ -45,7 +44,7 @@ public class SkillLevelToAdd   {
     this.skill = skill;
   }
 
-  public SkillLevelToAdd level(long level) {
+  public SkillLevelAdd level(long level) {
     this.level = level;
     return this;
   }
@@ -74,9 +73,9 @@ public class SkillLevelToAdd   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SkillLevelToAdd skillLevelToAdd = (SkillLevelToAdd) o;
-    return Objects.equals(this.skill, skillLevelToAdd.skill) &&
-        Objects.equals(this.level, skillLevelToAdd.level);
+    SkillLevelAdd skillLevelAdd = (SkillLevelAdd) o;
+    return Objects.equals(this.skill, skillLevelAdd.skill) &&
+           Objects.equals(this.level, skillLevelAdd.level);
   }
 
   @Override
@@ -87,7 +86,7 @@ public class SkillLevelToAdd   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SkillLevelToAdd {\n");
+    sb.append("class SkillLevelAdd {\n");
     sb.append("    skill: ").append(toIndentedString(skill)).append("\n");
     sb.append("    level: ").append(toIndentedString(level)).append("\n");
     sb.append("}");

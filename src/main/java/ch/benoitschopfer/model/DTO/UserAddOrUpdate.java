@@ -9,10 +9,10 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
- * UserToAddOrUpdate
+ * UserAddOrUpdate
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
-public class UserToAddOrUpdate {
+public class UserAddOrUpdate {
   @JsonProperty("email")
   @NotNull
   @Email
@@ -24,7 +24,7 @@ public class UserToAddOrUpdate {
   @Size(min = 3, message = "Password should have at least 3 characters")
   private String password;
 
-  public UserToAddOrUpdate email(String email) {
+  public UserAddOrUpdate email(String email) {
     this.email = email;
     return this;
   }
@@ -44,7 +44,7 @@ public class UserToAddOrUpdate {
     this.email = email;
   }
 
-  public UserToAddOrUpdate password(String password) {
+  public UserAddOrUpdate password(String password) {
     this.password = password;
     return this;
   }
@@ -72,9 +72,9 @@ public class UserToAddOrUpdate {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserToAddOrUpdate userToAddOrUpdate = (UserToAddOrUpdate) o;
-    return Objects.equals(this.email, userToAddOrUpdate.email) &&
-           Objects.equals(this.password, userToAddOrUpdate.password);
+    UserAddOrUpdate userAddOrUpdate = (UserAddOrUpdate) o;
+    return Objects.equals(this.email, userAddOrUpdate.email) &&
+           Objects.equals(this.password, userAddOrUpdate.password);
   }
 
   @Override
@@ -85,7 +85,7 @@ public class UserToAddOrUpdate {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserToAddOrUpdate {\n");
+    sb.append("class UserAddOrUpdate {\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");

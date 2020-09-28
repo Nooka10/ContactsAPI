@@ -5,7 +5,7 @@
  */
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.DTO.UserToAddOrUpdate;
+import ch.benoitschopfer.model.DTO.UserAddOrUpdate;
 import ch.benoitschopfer.model.User;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
@@ -33,7 +33,7 @@ public interface LoginApi {
    * POST /login : Logs in an user
    * Logs in an user with oauth authentication
    *
-   * @param userToAddOrUpdate A JSON object containing the username and the password of the user to log in (required)
+   * @param userAddOrUpdate A JSON object containing the username and the password of the user to log in (required)
    * @return Successfully authenticated (status code 200)
    * or Invalid input, received object is invalid (status code 400)
    * or Unauthorized, login failed (status code 401)
@@ -51,7 +51,7 @@ public interface LoginApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
-  default ResponseEntity<List<User>> login(@ApiParam(value = "A JSON object containing the username and the password of the user to log in", required = true) @Valid @RequestBody UserToAddOrUpdate userToAddOrUpdate) {
+  default ResponseEntity<List<User>> login(@ApiParam(value = "A JSON object containing the username and the password of the user to log in", required = true) @Valid @RequestBody UserAddOrUpdate userAddOrUpdate) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

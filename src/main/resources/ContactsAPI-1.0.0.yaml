@@ -312,7 +312,7 @@ paths:
       tags:
         - skills
       summary: Get all skills
-      description: By passing in the appropriate options, you can search for specifics skills in the system
+      description: Returns all skills whose name contains the received string
       operationId: getSkills
       parameters:
         - name: name
@@ -344,6 +344,7 @@ paths:
       operationId: addSkill
       requestBody:
         description: Skill to add
+        required: true
         content:
           application/json:
             schema:

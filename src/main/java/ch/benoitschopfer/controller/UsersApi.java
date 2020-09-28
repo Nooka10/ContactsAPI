@@ -5,7 +5,7 @@
  */
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.DTO.UserToAddOrUpdate;
+import ch.benoitschopfer.model.DTO.UserAddOrUpdate;
 import ch.benoitschopfer.model.User;
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
@@ -128,7 +128,7 @@ public interface UsersApi {
    * Update the connected user. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.
    *
    * @param id           Id of the user to update (required).
-   * @param userToAddOrUpdate User to update (optional).
+   * @param userAddOrUpdate User to update (required).
    * @return User succesfully updated (status code 200) or Invalid user supplied (status code 400) or User not found (status code 404).
    */
   @ApiOperation(value = "Update an existing user.", nickname = "updateUser", notes = "Update the connected user. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.", response = User.class, authorizations = {
@@ -147,7 +147,7 @@ public interface UsersApi {
     consumes = {"application/json"}
   )
   default ResponseEntity<User> updateUser(@ApiParam(value = "Id of the user to update.", required = true) @PathVariable("id") long id,
-                                          @ApiParam(value = "User to update.") @RequestBody(required = false) UserToAddOrUpdate userToAddOrUpdate) {
+                                          @ApiParam(value = "User to update.", required = true) @RequestBody(required = true) UserAddOrUpdate userAddOrUpdate) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

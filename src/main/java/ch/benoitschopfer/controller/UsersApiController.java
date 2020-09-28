@@ -1,6 +1,6 @@
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.DTO.UserToAddOrUpdate;
+import ch.benoitschopfer.model.DTO.UserAddOrUpdate;
 import ch.benoitschopfer.model.User;
 import ch.benoitschopfer.model.mappers.UserMapper;
 import ch.benoitschopfer.repository.UserRepository;
@@ -29,7 +29,7 @@ public class UsersApiController implements UsersApi {
   @Autowired
   UserRepository userRepository;
 
-  @org.springframework.beans.factory.annotation.Autowired
+  @Autowired
   public UsersApiController(NativeWebRequest request) {
     this.request = request;
   }
@@ -71,8 +71,8 @@ public class UsersApiController implements UsersApi {
   }
 
   @Override
-  public ResponseEntity<User> updateUser(long id, UserToAddOrUpdate userToAddOrUpdate) {
-    // userToAddOrUpdate param is willingly not validated with @Valid
+  public ResponseEntity<User> updateUser(long id, UserAddOrUpdate userAddOrUpdate) {
+    // userAddOrUpdate param is willingly not validated with @Valid
     Optional<User> optionalUser = userRepository.findById(id);
 
     if (optionalUser.isEmpty()) {
@@ -81,8 +81,8 @@ public class UsersApiController implements UsersApi {
 
     User user = optionalUser.get();
 
-    String email = userToAddOrUpdate.getEmail();
-    String password = userToAddOrUpdate.getPassword();
+    String email = userAddOrUpdate.getEmail();
+    String password = userAddOrUpdate.getPassword();
 
     if (email != null) {
       user.setEmail(email);

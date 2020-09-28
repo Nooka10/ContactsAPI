@@ -1,5 +1,6 @@
 package ch.benoitschopfer.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -12,7 +13,7 @@ public class ContactsApiController implements ContactsApi {
 
     private final NativeWebRequest request;
 
-    @org.springframework.beans.factory.annotation.Autowired
+    @Autowired
     public ContactsApiController(NativeWebRequest request) {
         this.request = request;
     }

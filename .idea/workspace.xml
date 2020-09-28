@@ -5,28 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2830b932-7aad-4af5-9dd5-247e4e110688" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/mappers/SkillLevelMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/mappers/SkillMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/ContactsApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/ContactsApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/ContactsApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/ContactsApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/LoginApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/LoginApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/LoginApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/LoginApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/RegisterApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/RegisterApi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/RegisterApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/RegisterApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/SkillsApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/SkillsApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/SkillsApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/SkillsApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/UsersApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/UsersApi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/UsersApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/UsersApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactToAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactToAdd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactToUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactToUpdate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/LoginOrRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/LoginOrRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelToAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelToAdd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelToUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelToUpdate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillToAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillToAdd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillToUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillToUpdate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/UserToAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/UserToAddOrUpdate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/UserToUpdate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactToAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactAdd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactToUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactUpdate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelToAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelAdd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelToUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelUpdate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillToAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillAddOrUpdate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillToUpdate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/UserToAddOrUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/UserAddOrUpdate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/mappers/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/mappers/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/ContactRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/ContactRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/SkillRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/SkillRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ContactsAPI-1.0.0.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ContactsAPI-1.0.2.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,8 +169,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Swagger Codegen.SwaggerCodegen: ContactsAPI-1.0.0.yaml" />
       <item itemvalue="Spring Boot.OpenAPI2SpringBoot" />
+      <item itemvalue="Swagger Codegen.SwaggerCodegen: ContactsAPI-1.0.0.yaml" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -200,7 +200,7 @@
       <workItem from="1601306917336" duration="21491000" />
       <workItem from="1601391039435" duration="61624000" />
       <workItem from="1601499704291" duration="7963000" />
-      <workItem from="1601508684673" duration="739000" />
+      <workItem from="1601508684673" duration="873000" />
     </task>
     <servers />
   </component>

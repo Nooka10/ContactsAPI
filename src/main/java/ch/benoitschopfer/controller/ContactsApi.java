@@ -6,10 +6,10 @@
 package ch.benoitschopfer.controller;
 
 import ch.benoitschopfer.model.Contact;
-import ch.benoitschopfer.model.DTO.ContactToAdd;
-import ch.benoitschopfer.model.DTO.ContactToUpdate;
-import ch.benoitschopfer.model.DTO.SkillLevelToAdd;
-import ch.benoitschopfer.model.DTO.SkillLevelToUpdate;
+import ch.benoitschopfer.model.DTO.ContactAdd;
+import ch.benoitschopfer.model.DTO.ContactUpdate;
+import ch.benoitschopfer.model.DTO.SkillLevelAdd;
+import ch.benoitschopfer.model.DTO.SkillLevelUpdate;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -35,7 +35,7 @@ public interface ContactsApi {
    * POST /contacts : Adds a new contact
    * Adds a new contact for the connected user
    *
-   * @param contactToAdd Contact to add (optional)
+   * @param contactAdd Contact to add (required)
    * @return Contact created (status code 201)
    * or Invalid input, received object is invalid (status code 400)
    * or This email adress is already used (status code 409)
@@ -55,7 +55,7 @@ public interface ContactsApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
-  default ResponseEntity<List<Contact>> addContact(@ApiParam(value = "Contact to add") @Valid @RequestBody(required = false) ContactToAdd contactToAdd) {
+  default ResponseEntity<List<Contact>> addContact(@ApiParam(value = "Contact to add", required = true) @Valid @RequestBody(required = true) ContactAdd contactAdd) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -76,7 +76,7 @@ public interface ContactsApi {
    *
    * @param contactId       Id of the contact to fetch (required)
    * @param skillId         Id of the skill to modify or delete (required)
-   * @param skillLevelToAdd SkillLevel to add (optional)
+   * @param skillLevelAdd SkillLevel to add (required)
    * @return Contact&#39;s skill level succesfully created (status code 201)
    * or Invalid input, received object is invalid (status code 400)
    * or This skill is already in the system (status code 409)
@@ -98,7 +98,7 @@ public interface ContactsApi {
   )
   default ResponseEntity<List<Contact>> addContactSkill(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("contactId") Long contactId,
                                                         @ApiParam(value = "Id of the skill to modify or delete", required = true) @PathVariable("skillId") Long skillId,
-                                                        @ApiParam(value = "SkillLevel to add") @Valid @RequestBody(required = false) SkillLevelToAdd skillLevelToAdd) {
+                                                        @ApiParam(value = "SkillLevel to add", required = true) @Valid @RequestBody(required = true) SkillLevelAdd skillLevelAdd) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -246,7 +246,7 @@ public interface ContactsApi {
    * Update an existing contact of the connected user
    *
    * @param id              Id of the contact to fetch (required)
-   * @param contactToUpdate Contact to update (optional)
+   * @param contactUpdate Contact to update (required)
    * @return contact succesfully updated (status code 200)
    * or Invalid contact supplied (status code 400)
    * or Contact not found (status code 404)
@@ -267,7 +267,7 @@ public interface ContactsApi {
     consumes = {"application/json"}
   )
   default ResponseEntity<List<Contact>> updateContact(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("id") long id,
-                                                      @ApiParam(value = "Contact to update") @Valid @RequestBody(required = false) ContactToUpdate contactToUpdate) {
+                                                      @ApiParam(value = "Contact to update", required = true) @Valid @RequestBody(required = true) ContactUpdate contactUpdate) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -288,7 +288,7 @@ public interface ContactsApi {
    *
    * @param contactId          Id of the contact to fetch (required)
    * @param skillId            Id of the skill to modify or delete (required)
-   * @param skillLevelToUpdate Skill level to update (optional)
+   * @param skillLevelUpdate Skill level to update (required)
    * @return Contact&#39;s skill level succesfully updated (status code 200)
    * or Invalid skill lever supplied (status code 400)
    * or Contact or skill not found (status code 404)
@@ -310,7 +310,7 @@ public interface ContactsApi {
   )
   default ResponseEntity<List<Contact>> updateContactSkill(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("contactId") Long contactId,
                                                            @ApiParam(value = "Id of the skill to modify or delete", required = true) @PathVariable("skillId") Long skillId,
-                                                           @ApiParam(value = "Skill level to update") @Valid @RequestBody(required = false) SkillLevelToUpdate skillLevelToUpdate) {
+                                                           @ApiParam(value = "Skill level to update", required = true) @Valid @RequestBody(required = true) SkillLevelUpdate skillLevelUpdate) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {

@@ -3,37 +3,43 @@ package ch.benoitschopfer.model.DTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
- * SkillToAdd
+ * SkillLevelUpdate
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
-public class SkillToAdd   {
-  @JsonProperty("name")
+public class SkillLevelUpdate {
+  @JsonProperty("level")
   @NotNull
-  @Size(min = 3, message = "Name should have at least 3 characters")
-  private String name;
+  @Min(1)
+  @Max(10)
+  private long level;
 
-  public SkillToAdd name(String name) {
-    this.name = name;
+  public SkillLevelUpdate level(long level) {
+    this.level = level;
     return this;
   }
 
   /**
-   * Get name
-   * @return name
+   * Get level
+   * @return level
   */
-  @ApiModelProperty(example = "SpringBoot", required = true, value = "")
+  @ApiModelProperty(required = true, value = "")
   @NotNull
-  public String getName() {
-    return name;
+
+  @Valid
+
+  public long getLevel() {
+    return level;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setLevel(long level) {
+    this.level = level;
   }
 
 
@@ -45,20 +51,21 @@ public class SkillToAdd   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SkillToAdd skillToAdd = (SkillToAdd) o;
-    return Objects.equals(this.name, skillToAdd.name);
+    SkillLevelUpdate skillLevelUpdate = (SkillLevelUpdate) o;
+    return Objects.equals(this.level, skillLevelUpdate.level);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name);
+    return Objects.hash(level);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SkillToAdd {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("class SkillLevelUpdate {\n");
+
+    sb.append("    level: ").append(toIndentedString(level)).append("\n");
     sb.append("}");
     return sb.toString();
   }
