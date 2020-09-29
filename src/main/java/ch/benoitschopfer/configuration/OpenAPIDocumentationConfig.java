@@ -9,10 +9,11 @@ import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDi
 import org.springframework.plugin.core.SimplePluginRegistry;
 import org.springframework.web.util.UriComponentsBuilder;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.paths.Paths;
 import springfox.documentation.spring.web.paths.RelativePathProvider;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -26,6 +27,8 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class OpenAPIDocumentationConfig {
+  private static final String BASIC_AUTH = "basicAuth";
+  private static final String BEARER_AUTH = "Bearer";
 
   ApiInfo apiInfo() {
     return new ApiInfoBuilder()
@@ -50,12 +53,34 @@ public class OpenAPIDocumentationConfig {
   public Docket customImplementation(ServletContext servletContext, @Value("${openapi.Contacts API.base-path:/api}") String basePath) {
     return new Docket(DocumentationType.SWAGGER_2)
       .select()
-      .apis(RequestHandlerSelectors.basePackage("ch.benoitschopfer.controller"))
+      .apis(RequestHandlerSelectors.basePackage("ch.benoitschopfer"))
       .build()
       .pathProvider(new BasePathAwareRelativePathProvider(servletContext, basePath))
       .directModelSubstitute(java.time.LocalDate.class, java.sql.Date.class)
       .directModelSubstitute(java.time.OffsetDateTime.class, java.util.Date.class)
-      .apiInfo(apiInfo());
+      .apiInfo(apiInfo())
+      .securitySchemes(securitySchemes())
+      .securityContexts(List.of(securityContext()));
+  }
+
+  private List<SecurityScheme> securitySchemes() {
+    return List.of(new BasicAuth(BASIC_AUTH), new ApiKey(BEARER_AUTH, "Authorization", "header"));
+  }
+
+  private SecurityContext securityContext() {
+    return SecurityContext
+      .builder()
+      .securityReferences(List.of(basicAuthReference(), bearerAuthReference()))
+      .forPaths(PathSelectors.ant("/api/**"))
+      .build();
+  }
+
+  private SecurityReference basicAuthReference() {
+    return new SecurityReference(BASIC_AUTH, new AuthorizationScope[0]);
+  }
+
+  private SecurityReference bearerAuthReference() {
+    return new SecurityReference(BEARER_AUTH, new AuthorizationScope[0]);
   }
 
   class BasePathAwareRelativePathProvider extends RelativePathProvider {

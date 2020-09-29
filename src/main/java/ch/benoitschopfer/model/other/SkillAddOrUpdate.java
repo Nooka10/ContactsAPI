@@ -1,45 +1,39 @@
-package ch.benoitschopfer.model.DTO;
+package ch.benoitschopfer.model.other;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 /**
- * SkillLevelUpdate
+ * SkillAddOrUpdate
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
-public class SkillLevelUpdate {
-  @JsonProperty("level")
+public class SkillAddOrUpdate {
+  @JsonProperty("name")
   @NotNull
-  @Min(1)
-  @Max(10)
-  private long level;
+  @Size(min = 3, message = "Name should have at least 3 characters")
+  private String name;
 
-  public SkillLevelUpdate level(long level) {
-    this.level = level;
+  public SkillAddOrUpdate name(String name) {
+    this.name = name;
     return this;
   }
 
   /**
-   * Get level
-   * @return level
+   * Get name
+   * @return name
   */
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "SpringBoot", required = true, value = "")
   @NotNull
-
-  @Valid
-
-  public long getLevel() {
-    return level;
+  public String getName() {
+    return name;
   }
 
-  public void setLevel(long level) {
-    this.level = level;
+  public void setName(String name) {
+    this.name = name;
   }
 
 
@@ -51,21 +45,20 @@ public class SkillLevelUpdate {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SkillLevelUpdate skillLevelUpdate = (SkillLevelUpdate) o;
-    return Objects.equals(this.level, skillLevelUpdate.level);
+    SkillAddOrUpdate skillAddOrUpdate = (SkillAddOrUpdate) o;
+    return Objects.equals(this.name, skillAddOrUpdate.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(level);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SkillLevelUpdate {\n");
-
-    sb.append("    level: ").append(toIndentedString(level)).append("\n");
+    sb.append("class SkillAddOrUpdate {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }

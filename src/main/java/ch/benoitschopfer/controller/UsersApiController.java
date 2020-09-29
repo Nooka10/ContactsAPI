@@ -1,7 +1,7 @@
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.DTO.UserAddOrUpdate;
-import ch.benoitschopfer.model.User;
+import ch.benoitschopfer.model.other.UserUpdate;
+import ch.benoitschopfer.model.entity.User;
 import ch.benoitschopfer.model.mappers.UserMapper;
 import ch.benoitschopfer.repository.UserRepository;
 import org.mapstruct.factory.Mappers;
@@ -10,16 +10,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
 import java.util.Optional;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
-@Controller
-@RequestMapping("${openapi.Contacts API.base-path:/api}")
+@RestController
+@RequestMapping("${openapi.Contacts API.base-path:/api/secured}")
 public class UsersApiController implements UsersApi {
 
   private final NativeWebRequest request;
@@ -71,8 +71,8 @@ public class UsersApiController implements UsersApi {
   }
 
   @Override
-  public ResponseEntity<User> updateUser(long id, UserAddOrUpdate userAddOrUpdate) {
-    // userAddOrUpdate param is willingly not validated with @Valid
+  public ResponseEntity<User> updateUser(long id, UserUpdate userUpdate) {
+    // userUpdate param is willingly not validated with @Valid
     Optional<User> optionalUser = userRepository.findById(id);
 
     if (optionalUser.isEmpty()) {
@@ -81,8 +81,8 @@ public class UsersApiController implements UsersApi {
 
     User user = optionalUser.get();
 
-    String email = userAddOrUpdate.getEmail();
-    String password = userAddOrUpdate.getPassword();
+    String email = userUpdate.getEmail();
+    String password = userUpdate.getPassword();
 
     if (email != null) {
       user.setEmail(email);

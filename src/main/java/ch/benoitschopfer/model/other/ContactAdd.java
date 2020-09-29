@@ -1,4 +1,4 @@
-package ch.benoitschopfer.model.DTO;
+package ch.benoitschopfer.model.other;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;

@@ -5,28 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2830b932-7aad-4af5-9dd5-247e4e110688" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/mappers/SkillLevelMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/mappers/SkillMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/OpenAPI2SpringBoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/OpenAPI2SpringBoot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/configuration/OpenAPIDocumentationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/configuration/OpenAPIDocumentationConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/configuration/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/configuration/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/ContactsApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/ContactsApi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/ContactsApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/ContactsApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/LoginApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/LoginApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/LoginApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/LoginApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/RegisterApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/RegisterApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/RegisterApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/RegisterApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/LoginApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/LoginApiController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/RegisterApi.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/RegisterApiController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/SkillsApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/SkillsApi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/SkillsApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/SkillsApiController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/UsersApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/UsersApi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/UsersApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/UsersApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactToAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactAdd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactToUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactUpdate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelToAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelAdd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelToUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelUpdate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillToAdd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillAddOrUpdate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillToUpdate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/UserToAddOrUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/UserAddOrUpdate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/Contact.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactAdd.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/ContactUpdate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/LoginOrRegister.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillAddOrUpdate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelAdd.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/SkillLevelUpdate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/DTO/UserAddOrUpdate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/Skill.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/SkillLevel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/mappers/SkillLevelMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/mappers/SkillLevelMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/mappers/SkillMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/mappers/SkillMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/mappers/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/mappers/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/ContactRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/ContactRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/SkillRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/SkillRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ContactsAPI-1.0.0.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ContactsAPI-1.0.2.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +210,7 @@
       <workItem from="1601306917336" duration="21491000" />
       <workItem from="1601391039435" duration="61624000" />
       <workItem from="1601499704291" duration="7963000" />
-      <workItem from="1601508684673" duration="873000" />
+      <workItem from="1601508684673" duration="993000" />
     </task>
     <servers />
   </component>
@@ -211,11 +221,11 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="184" y="23" width="1213" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601289469791">
+    <state x="184" y="23" width="1213" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601330333926">
       <screen x="0" y="23" width="1440" height="824" />
     </state>
     <state x="184" y="23" width="1213" height="748" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.823/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.823" timestamp="1600543495637" />
-    <state x="184" y="23" width="1213" height="824" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.824/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.824" timestamp="1601289469791" />
+    <state x="184" y="23" width="1213" height="824" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.824/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.824" timestamp="1601330333926" />
     <state x="184" y="23" width="1213" height="656" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.825/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.825" timestamp="1601400221319" />
     <state x="1685" y="-125" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.825/1440.-125.1920.1057/-1920.-120.1920.1057@1440.-125.1920.1057" timestamp="1600728152482" />
     <state x="184" y="23" width="1213" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.828/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.828" timestamp="1601479901275" />

@@ -1,7 +1,7 @@
 package ch.benoitschopfer.model.mappers;
 
-import ch.benoitschopfer.model.DTO.SkillAddOrUpdate;
-import ch.benoitschopfer.model.Skill;
+import ch.benoitschopfer.model.entity.Skill;
+import ch.benoitschopfer.model.other.SkillAddOrUpdate;
 import org.mapstruct.Mapper;
 
 @Mapper

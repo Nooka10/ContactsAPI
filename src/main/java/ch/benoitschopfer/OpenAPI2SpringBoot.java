@@ -8,10 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @ComponentScan(basePackages = {"ch.benoitschopfer", "ch.benoitschopfer.controller", "ch.benoitschopfer.configuration"})
 public class OpenAPI2SpringBoot implements CommandLineRunner {
 

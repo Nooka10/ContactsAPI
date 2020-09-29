@@ -5,14 +5,15 @@
  */
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.DTO.SkillAddOrUpdate;
-import ch.benoitschopfer.model.Skill;
+import ch.benoitschopfer.model.other.SkillAddOrUpdate;
+import ch.benoitschopfer.model.entity.Skill;
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -22,7 +23,7 @@ import java.util.Optional;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 @Validated
-@Api(value = "skills", description = "the skills API")
+// @Api(value = "skills", description = "the skills API")
 public interface SkillsApi {
 
   default Optional<NativeWebRequest> getRequest() {
@@ -52,6 +53,7 @@ public interface SkillsApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
+  @PreAuthorize("hasRole('ADMIN')")
   default ResponseEntity<?> addSkill(@ApiParam(value = "Skill to add.", required = true) @Valid @RequestBody(required = true) SkillAddOrUpdate skillAddOrUpdate) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -86,6 +88,7 @@ public interface SkillsApi {
   @DeleteMapping(
     value = "/skills/{name}"
   )
+  @PreAuthorize("hasRole('ADMIN')")
   default ResponseEntity<Void> deleteSkill(@ApiParam(value = "Name of the skill to delete.", required = true) @PathVariable("name") String name) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -113,6 +116,7 @@ public interface SkillsApi {
     value = "/skills/{name}",
     produces = {"application/json"}
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<Skill> getSkill(@ApiParam(value = "Name of the skill to fetch.", required = true) @PathVariable("name") String name) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -149,6 +153,7 @@ public interface SkillsApi {
     value = "/skills",
     produces = {"application/json"}
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<Page<Skill>> getSkills(@ApiParam(value = "Returns all skills whose name contains the received string.") @Valid @RequestParam(value = "name", required = false) String name, Pageable pageable) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -160,7 +165,6 @@ public interface SkillsApi {
       }
     });
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
   }
 
 
@@ -188,6 +192,7 @@ public interface SkillsApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
+  @PreAuthorize("hasRole('ADMIN')")
   default ResponseEntity<Skill> updateSkill(@ApiParam(value = "Name of the skill to update.", required = true) @PathVariable("name") String name,
                                                   @ApiParam(value = "Skill to update.", required = true) @Valid @RequestBody(required = true) SkillAddOrUpdate skillAddOrUpdate) {
     getRequest().ifPresent(request -> {

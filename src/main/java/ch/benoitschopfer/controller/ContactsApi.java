@@ -5,15 +5,16 @@
  */
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.Contact;
-import ch.benoitschopfer.model.DTO.ContactAdd;
-import ch.benoitschopfer.model.DTO.ContactUpdate;
-import ch.benoitschopfer.model.DTO.SkillLevelAdd;
-import ch.benoitschopfer.model.DTO.SkillLevelUpdate;
+import ch.benoitschopfer.model.entity.Contact;
+import ch.benoitschopfer.model.other.ContactAdd;
+import ch.benoitschopfer.model.other.ContactUpdate;
+import ch.benoitschopfer.model.other.SkillLevelAdd;
+import ch.benoitschopfer.model.other.SkillLevelUpdate;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -24,7 +25,7 @@ import java.util.Optional;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 @Validated
-@Api(value = "contacts", description = "the contacts API")
+// @Api(value = "contacts", description = "the contacts API")
 public interface ContactsApi {
 
   default Optional<NativeWebRequest> getRequest() {
@@ -55,6 +56,7 @@ public interface ContactsApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<List<Contact>> addContact(@ApiParam(value = "Contact to add", required = true) @Valid @RequestBody(required = true) ContactAdd contactAdd) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -96,6 +98,7 @@ public interface ContactsApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<List<Contact>> addContactSkill(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("contactId") Long contactId,
                                                         @ApiParam(value = "Id of the skill to modify or delete", required = true) @PathVariable("skillId") Long skillId,
                                                         @ApiParam(value = "SkillLevel to add", required = true) @Valid @RequestBody(required = true) SkillLevelAdd skillLevelAdd) {
@@ -133,6 +136,7 @@ public interface ContactsApi {
   @DeleteMapping(
     value = "/contacts/{id}"
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<Void> deleteContact(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("id") long id) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -160,6 +164,7 @@ public interface ContactsApi {
   @DeleteMapping(
     value = "/contacts/{contactId}/skills/{skillId}"
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<Void> deleteContactSkill(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("contactId") Long contactId,
                                                   @ApiParam(value = "Id of the skill to modify or delete", required = true) @PathVariable("skillId") Long skillId) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -188,6 +193,7 @@ public interface ContactsApi {
     value = "/contacts/{id}",
     produces = {"application/json"}
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<List<Contact>> getContact(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("id") long id) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -225,6 +231,7 @@ public interface ContactsApi {
     value = "/contacts",
     produces = {"application/json"}
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<List<Contact>> getContacts(@ApiParam(value = "Returns all contacts whose firstname or lastname contains the received string") @Valid @RequestParam(value = "name", required = false) String name,
                                                     @ApiParam(value = "Returns all contacts whose email contains the received string") @Valid @RequestParam(value = "email", required = false) String email) {
     getRequest().ifPresent(request -> {
@@ -266,6 +273,7 @@ public interface ContactsApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<List<Contact>> updateContact(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("id") long id,
                                                       @ApiParam(value = "Contact to update", required = true) @Valid @RequestBody(required = true) ContactUpdate contactUpdate) {
     getRequest().ifPresent(request -> {
@@ -308,6 +316,7 @@ public interface ContactsApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<List<Contact>> updateContactSkill(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("contactId") Long contactId,
                                                            @ApiParam(value = "Id of the skill to modify or delete", required = true) @PathVariable("skillId") Long skillId,
                                                            @ApiParam(value = "Skill level to update", required = true) @Valid @RequestBody(required = true) SkillLevelUpdate skillLevelUpdate) {

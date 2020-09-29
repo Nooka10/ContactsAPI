@@ -1,12 +1,18 @@
 package ch.benoitschopfer.model.mappers;
 
-import ch.benoitschopfer.model.DTO.UserAddOrUpdate;
-import ch.benoitschopfer.model.User;
+import ch.benoitschopfer.model.other.LoginRequest;
+import ch.benoitschopfer.model.other.RegisterRequest;
+import ch.benoitschopfer.model.other.UserUpdate;
+import ch.benoitschopfer.model.entity.User;
 import org.mapstruct.Mapper;
 
 @Mapper
 public interface UserMapper {
-  User userAddOrUpdateToUser(UserAddOrUpdate userAddOrUpdate);
+  User loginRequestToUser(LoginRequest loginRequest);
 
-  UserAddOrUpdate userToUserAddOrUpdate(User userToAdd);
+  User registerRequestToUser(RegisterRequest registerRequest);
+
+  User userUpdateToUser(UserUpdate userUpdate);
+
+  UserUpdate userToUserUpdate(User userToAdd);
 }

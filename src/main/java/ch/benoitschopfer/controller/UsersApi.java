@@ -5,14 +5,15 @@
  */
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.DTO.UserAddOrUpdate;
-import ch.benoitschopfer.model.User;
+import ch.benoitschopfer.model.other.UserUpdate;
+import ch.benoitschopfer.model.entity.User;
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -22,7 +23,7 @@ import java.util.Optional;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 @Validated
-@Api(value = "users", description = "the users API")
+// @Api(value = "users", description = "the users API")
 public interface UsersApi {
 
   default Optional<NativeWebRequest> getRequest() {
@@ -48,6 +49,7 @@ public interface UsersApi {
   @DeleteMapping(
     value = "/users/{id}"
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<Void> deleteUser(@ApiParam(value = "Id of the user to delete.", required = true) @PathVariable("id") long id) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -74,6 +76,7 @@ public interface UsersApi {
     value = "/users/{id}",
     produces = {"application/json"}
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<User> getUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") long id) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -108,6 +111,7 @@ public interface UsersApi {
     value = "/users",
     produces = {"application/json"}
   )
+  @PreAuthorize("hasRole('ADMIN')")
   default ResponseEntity<Page<User>> getUsers(@ApiParam(value = "Returns all users whose email contains the received string.") @Valid @RequestParam(value = "email", required = false) String email, Pageable Pageable) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -128,7 +132,7 @@ public interface UsersApi {
    * Update the connected user. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.
    *
    * @param id           Id of the user to update (required).
-   * @param userAddOrUpdate User to update (required).
+   * @param userUpdate User to update (required).
    * @return User succesfully updated (status code 200) or Invalid user supplied (status code 400) or User not found (status code 404).
    */
   @ApiOperation(value = "Update an existing user.", nickname = "updateUser", notes = "Update the connected user. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.", response = User.class, authorizations = {
@@ -146,8 +150,9 @@ public interface UsersApi {
     produces = {"application/json"},
     consumes = {"application/json"}
   )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<User> updateUser(@ApiParam(value = "Id of the user to update.", required = true) @PathVariable("id") long id,
-                                          @ApiParam(value = "User to update.", required = true) @RequestBody(required = true) UserAddOrUpdate userAddOrUpdate) {
+                                          @ApiParam(value = "User to update.", required = true) @RequestBody(required = true) UserUpdate userUpdate) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -158,7 +163,5 @@ public interface UsersApi {
       }
     });
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
   }
-
 }

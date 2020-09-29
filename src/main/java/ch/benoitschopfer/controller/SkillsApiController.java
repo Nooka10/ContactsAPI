@@ -1,7 +1,7 @@
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.DTO.SkillAddOrUpdate;
-import ch.benoitschopfer.model.Skill;
+import ch.benoitschopfer.model.other.SkillAddOrUpdate;
+import ch.benoitschopfer.model.entity.Skill;
 import ch.benoitschopfer.model.mappers.SkillMapper;
 import ch.benoitschopfer.repository.SkillRepository;
 import org.mapstruct.factory.Mappers;
@@ -12,8 +12,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -23,8 +23,8 @@ import java.net.URISyntaxException;
 import java.util.Optional;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
-@Controller
-@RequestMapping("${openapi.Contacts API.base-path:/api}")
+@RestController
+@RequestMapping("${openapi.Contacts API.base-path:/api/secured}")
 public class SkillsApiController implements SkillsApi {
 
   private final NativeWebRequest request;

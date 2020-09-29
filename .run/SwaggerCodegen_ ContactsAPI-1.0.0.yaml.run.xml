@@ -44,7 +44,7 @@
     <option name="generatorPath" value="/usr/local/Cellar/openapi-generator/HEAD-874daad/libexec/openapi-generator-cli.jar" />
     <option name="jdkPath" value="Default" />
     <option name="language" value="spring" />
-    <option name="specificationPath" value="$PROJECT_DIR$/src/main/resources/ContactsAPI-1.0.2.yaml" />
+    <option name="specificationPath" value="$PROJECT_DIR$/src/main/resources/ContactsAPI-1.0.0.yaml" />
     <method v="2" />
   </configuration>
 </component>

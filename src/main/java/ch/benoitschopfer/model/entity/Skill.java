@@ -1,7 +1,8 @@
-package ch.benoitschopfer.model;
+package ch.benoitschopfer.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -16,11 +17,11 @@ import java.util.Objects;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 @Entity
-public class Skill {
+public class Skill extends RepresentationModel<Skill> {
   @JsonProperty("id")
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-private long id;
+  private long id;
 
   @JsonProperty("name")
   @NotNull
