@@ -20,12 +20,12 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
   @Autowired
-  private UserRepository repo;
+  private UserRepository userRepository;
 
   @Override
   @Transactional
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    Optional<User> optionalUser = repo.findByEmail(username);
+    Optional<User> optionalUser = userRepository.findByEmail(username);
     if (optionalUser.isEmpty()) {
       throw new UsernameNotFoundException("User not found with username: " + username);
     } else {

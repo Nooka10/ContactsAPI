@@ -1,6 +1,7 @@
 package ch.benoitschopfer.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -13,10 +14,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User
@@ -44,14 +42,15 @@ public class User extends RepresentationModel<User> {
   private String password;
 
   @JsonProperty("contacts")
+  @JsonManagedReference
   @Valid
-  @OneToMany(mappedBy = "linkedUser")
+  @OneToMany(mappedBy = "linkedUser", targetEntity = Contact.class, fetch = FetchType.LAZY)
   @OnDelete(action = OnDeleteAction.CASCADE)
   private List<Contact> contacts = new ArrayList<>();
 
   @JsonProperty("roles")
   @NotNull
-  @ManyToMany(fetch = FetchType.EAGER)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "user_roles",
     joinColumns = @JoinColumn(name = "user_id", nullable = false),
     inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
@@ -79,6 +78,15 @@ public class User extends RepresentationModel<User> {
     return roles;
   }
 
+  public boolean isAdmin() {
+    for (Role role : this.roles) {
+      if (role.isAdmin()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public void setId(long id) {
     this.id = id;
   }
@@ -104,10 +112,28 @@ public class User extends RepresentationModel<User> {
     }
   }
 
+  public Optional<Contact> getContactById(Long id) {
+    for (Contact contact : this.contacts) {
+      if (contact.getId() == id) {
+        return Optional.of(contact);
+      }
+    }
+    return Optional.empty();
+  }
+
   public void removeContact(Contact contact) {
     if (this.contacts.contains(contact)) {
       this.contacts.remove(contact);
     }
+  }
+
+  public boolean removeContactById(Long id) {
+    for (Contact contact : this.contacts) {
+      if (contact.getId() == id) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 

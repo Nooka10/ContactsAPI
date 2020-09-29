@@ -99,9 +99,9 @@ public interface ContactsApi {
     consumes = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<List<Contact>> addContactSkill(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("contactId") Long contactId,
-                                                        @ApiParam(value = "Id of the skill to modify or delete", required = true) @PathVariable("skillId") Long skillId,
-                                                        @ApiParam(value = "SkillLevel to add", required = true) @Valid @RequestBody(required = true) SkillLevelAdd skillLevelAdd) {
+  default ResponseEntity<?> addContactSkill(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("contactId") Long contactId,
+                                            @ApiParam(value = "Id of the skill to modify or delete", required = true) @PathVariable("skillId") Long skillId,
+                                            @ApiParam(value = "SkillLevel to add", required = true) @Valid @RequestBody(required = true) SkillLevelAdd skillLevelAdd) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -137,7 +137,7 @@ public interface ContactsApi {
     value = "/contacts/{id}"
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<Void> deleteContact(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("id") long id) {
+  default ResponseEntity<?> deleteContact(@ApiParam(value = "Id of the contact to fetch", required = true) @PathVariable("id") long id) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
   }

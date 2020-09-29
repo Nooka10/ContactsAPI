@@ -20,6 +20,10 @@ public class Role extends RepresentationModel<Role> {
   @ManyToMany(mappedBy = "roles")
   private Set<User> users;
 
+  public boolean isAdmin(){
+    return this.name.equals(ADMIN);
+  }
+
   public Role() {}
 
   public Role(String name) {

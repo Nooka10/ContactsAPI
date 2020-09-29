@@ -1,6 +1,5 @@
 package ch.benoitschopfer.model.other;
 
-import ch.benoitschopfer.model.entity.Skill;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -15,34 +14,10 @@ import java.util.Objects;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 public class SkillLevelAdd {
-  @JsonProperty("skill")
-  @Valid
-  private Skill skill;
-
   @JsonProperty("level")
   @Min(1)
   @Max(10)
   private long level;
-
-  public SkillLevelAdd skill(Skill skill) {
-    this.skill = skill;
-    return this;
-  }
-
-  /**
-   * Get skill
-   * @return skill
-  */
-  @ApiModelProperty(required = true, value = "")
-  @NotNull
-  @Valid
-  public Skill getSkill() {
-    return skill;
-  }
-
-  public void setSkill(Skill skill) {
-    this.skill = skill;
-  }
 
   public SkillLevelAdd level(long level) {
     this.level = level;
@@ -51,8 +26,9 @@ public class SkillLevelAdd {
 
   /**
    * Get level
+   *
    * @return level
-  */
+   */
   @ApiModelProperty(required = true, value = "")
   @NotNull
   @Valid
@@ -64,7 +40,6 @@ public class SkillLevelAdd {
     this.level = level;
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -74,20 +49,18 @@ public class SkillLevelAdd {
       return false;
     }
     SkillLevelAdd skillLevelAdd = (SkillLevelAdd) o;
-    return Objects.equals(this.skill, skillLevelAdd.skill) &&
-           Objects.equals(this.level, skillLevelAdd.level);
+    return Objects.equals(this.level, skillLevelAdd.level);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(skill, level);
+    return Objects.hash(level);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SkillLevelAdd {\n");
-    sb.append("    skill: ").append(toIndentedString(skill)).append("\n");
     sb.append("    level: ").append(toIndentedString(level)).append("\n");
     sb.append("}");
     return sb.toString();

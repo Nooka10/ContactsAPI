@@ -1,5 +1,6 @@
 package ch.benoitschopfer.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.OnDelete;
@@ -15,6 +16,9 @@ import java.util.Objects;
  * SkillLevel
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
+@Table(name="skill_level",  uniqueConstraints={
+  @UniqueConstraint(columnNames={"skill_id", "contact_id"})
+})
 @Entity
 public class SkillLevel extends RepresentationModel<SkillLevel> {
   @JsonProperty("id")
@@ -23,6 +27,7 @@ public class SkillLevel extends RepresentationModel<SkillLevel> {
   private long id;
 
   @JsonProperty("skill")
+  @JsonBackReference
   @ManyToOne
   @JoinColumn(name = "skill_id", referencedColumnName = "id", nullable = false)
   @OnDelete(action = OnDeleteAction.NO_ACTION)
@@ -32,10 +37,19 @@ public class SkillLevel extends RepresentationModel<SkillLevel> {
   private long level;
 
   @JsonProperty("skilledContact")
+  @JsonBackReference
   @ManyToOne
   @JoinColumn(name = "contact_id", referencedColumnName = "id", nullable = false)
   @OnDelete(action = OnDeleteAction.NO_ACTION)
   private Contact skilledContact;
+
+  public SkillLevel() { }
+
+  public SkillLevel(Skill skill, long level, Contact skilledContact) {
+    this.skill = skill;
+    this.level = level;
+    this.skilledContact = skilledContact;
+  }
 
   public SkillLevel id(long id) {
     this.id = id;

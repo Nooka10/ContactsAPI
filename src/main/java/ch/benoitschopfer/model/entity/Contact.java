@@ -1,5 +1,7 @@
 package ch.benoitschopfer.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.OnDelete;
@@ -51,13 +53,15 @@ public class Contact extends RepresentationModel<Contact> {
   private String mobilephone;
 
   @JsonProperty("linkedUser")
+  @JsonBackReference
   @ManyToOne
-  @JoinColumn(name = "user_id", nullable = false)
+  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
   private User linkedUser;
 
   @JsonProperty("skills")
+  @JsonManagedReference
   @Valid
-  @OneToMany(mappedBy = "skilledContact")
+  @OneToMany(mappedBy = "skilledContact", targetEntity = SkillLevel.class, fetch = FetchType.LAZY)
   @OnDelete(action = OnDeleteAction.CASCADE)
   private List<SkillLevel> skills = new ArrayList<>();
 
@@ -82,6 +86,7 @@ public class Contact extends RepresentationModel<Contact> {
 
   public Contact firstname(String firstname) {
     this.firstname = firstname;
+    setFullname();
     return this;
   }
 
@@ -97,10 +102,12 @@ public class Contact extends RepresentationModel<Contact> {
 
   public void setFirstname(String firstname) {
     this.firstname = firstname;
+    setFullname();
   }
 
   public Contact lastname(String lastname) {
     this.lastname = lastname;
+    setFullname();
     return this;
   }
 
@@ -116,11 +123,7 @@ public class Contact extends RepresentationModel<Contact> {
 
   public void setLastname(String lastname) {
     this.lastname = lastname;
-  }
-
-  public Contact fullname(String fullname) {
-    this.fullname = fullname;
-    return this;
+    setFullname();
   }
 
   /**
@@ -133,8 +136,8 @@ public class Contact extends RepresentationModel<Contact> {
     return fullname;
   }
 
-  public void setFullname(String fullname) {
-    this.fullname = fullname;
+  private void setFullname() {
+    this.fullname = this.firstname + " " + this.lastname;
   }
 
   public Contact address(String address) {

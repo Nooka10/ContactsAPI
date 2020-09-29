@@ -112,14 +112,16 @@ public class AuthenticationApiController implements AuthenticationApi {
       }
 
       User user = userMapper.registerRequestToUser(registerRequest);
-      Optional<Role> simpleUser = roleRepository.findByName("USER");
-      user.addRole(simpleUser.get());
+      for (String role : registerRequest.getRole()) {
+        Optional<Role> r = roleRepository.findByName(role);
+        user.addRole(r.get());
+      }
       User savedUser = userRepository.save(user);
 
       String location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/users/{id}").buildAndExpand(savedUser.getId()).toUriString();
       EntityModel<User> UserResource = new EntityModel<>(savedUser, Link.of(location, "self"));
 
-      login(new LoginRequest(user.getEmail(), user.getPassword()));
+      login(new LoginRequest(registerRequest.getEmail(), registerRequest.getPassword()));
 
       return ResponseEntity
         .created(new URI(location))

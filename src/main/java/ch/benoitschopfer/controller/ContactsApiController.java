@@ -1,19 +1,26 @@
 package ch.benoitschopfer.controller;
 
 import ch.benoitschopfer.model.entity.Contact;
+import ch.benoitschopfer.model.entity.SkillLevel;
 import ch.benoitschopfer.model.entity.User;
 import ch.benoitschopfer.model.mappers.ContactMapper;
+import ch.benoitschopfer.model.mappers.SkillLevelMapper;
 import ch.benoitschopfer.model.other.ContactAdd;
 import ch.benoitschopfer.model.other.ContactUpdate;
 import ch.benoitschopfer.model.other.SkillLevelAdd;
 import ch.benoitschopfer.model.other.SkillLevelUpdate;
+import ch.benoitschopfer.repository.ContactRepository;
+import ch.benoitschopfer.repository.SkillLevelRepository;
+import ch.benoitschopfer.repository.SkillRepository;
 import ch.benoitschopfer.repository.UserRepository;
 import ch.benoitschopfer.service.UserDetailsImpl;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -32,7 +39,18 @@ public class ContactsApiController implements ContactsApi {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ContactRepository contactRepository;
+
+    @Autowired
+    SkillRepository skillRepository;
+
+    @Autowired
+    SkillLevelRepository skillLevelRepository;
+
     private ContactMapper contactMapper = Mappers.getMapper(ContactMapper.class);
+
+    private SkillLevelMapper skillLevelMapper = Mappers.getMapper(SkillLevelMapper.class);
 
     @Autowired
     public ContactsApiController(NativeWebRequest request) {
@@ -45,26 +63,54 @@ public class ContactsApiController implements ContactsApi {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<List<Contact>> addContact(@Valid ContactAdd contactAdd) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
         Optional<User> optionalUser = userRepository.findById(userDetails.getId());
         User user = optionalUser.get();
 
+        Contact contact = contactMapper.contactAddToContact(contactAdd);
+        contact.setLinkedUser(user);
+        contact = contactRepository.save(contact);
 
-        user.addContact(contactMapper.contactAddToContact(contactAdd));
-        user = userRepository.save(user);
         return ResponseEntity.ok(user.getContacts());
     }
 
     @Override
-    public ResponseEntity<List<Contact>> addContactSkill(Long contactId, Long skillId, @Valid SkillLevelAdd skillLevelAdd) {
-        return null;
+    public ResponseEntity<?> addContactSkill(Long contactId, Long skillId, @Valid SkillLevelAdd skillLevelAdd) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
+        Optional<User> optionalUser = userRepository.findById(userDetails.getId());
+        User user = optionalUser.get();
+
+        Optional<Contact> optionalContact = user.getContactById(contactId);
+        if (optionalContact.isEmpty() && !user.isAdmin()) {
+            return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+        } else if (!optionalContact.isEmpty() || user.isAdmin()) {
+            Contact contact = optionalContact.get();
+            SkillLevel skillLevel = new SkillLevel(skillRepository.findById(skillId).get(), skillLevelAdd.getLevel(), contact);
+            skillLevel = skillLevelRepository.save(skillLevel);
+            return ResponseEntity.ok(contact);
+        } else {
+            throw new Error();
+        }
     }
 
     @Override
-    public ResponseEntity<Void> deleteContact(long id) {
-        return null;
+    @Transactional
+    public ResponseEntity<?> deleteContact(long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
+        Optional<User> optionalUser = userRepository.findById(userDetails.getId());
+        User user = optionalUser.get();
+
+        if (user.removeContactById(id) || user.isAdmin()) {
+            contactRepository.deleteById(id);
+        } else {
+            return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @Override

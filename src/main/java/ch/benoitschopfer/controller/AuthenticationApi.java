@@ -64,7 +64,7 @@ public interface AuthenticationApi {
 
   /**
    * POST /login : Logs in an user.
-   * Logs in an user with okta OAuth2 authentication.
+   * Logs in an user with Bearer Token authentication.
    *
    * @param userUpdate A JSON object containing the username and the password of the user to log in (required).
    * @return Successfully authenticated (status code 200)
@@ -72,7 +72,7 @@ public interface AuthenticationApi {
    * or Unauthorized, login failed (status code 401)
    * or User not found, unknown username (status code 404).
    */
-  @ApiOperation(value = "Logs in an user.", nickname = "login", notes = "Logs in an user with okta OAuth2 authentication.", response = User.class, tags = {
+  @ApiOperation(value = "Logs in an user.", nickname = "login", notes = "Logs in an user with Bearer Token authentication.", response = User.class, tags = {
     "login",})
   @ApiResponses(value = {
     @ApiResponse(code = 200, message = "Successfully authenticated.", response = User.class),
