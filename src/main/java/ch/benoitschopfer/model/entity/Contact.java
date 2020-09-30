@@ -223,8 +223,13 @@ public class Contact extends RepresentationModel<Contact> {
     return this;
   }
 
-  public Contact addSkillsItem(SkillLevel skillsItem) {
-    this.skills.add(skillsItem);
+  public Contact addSkills(SkillLevel skillLevel) {
+    this.skills.add(skillLevel);
+    return this;
+  }
+
+  public Contact removeSkills(SkillLevel skillLevel) {
+    this.skills.remove(skillLevel);
     return this;
   }
 

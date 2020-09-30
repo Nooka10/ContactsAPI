@@ -106,7 +106,7 @@ public interface UsersApi {
   }, tags = {"users",})
   @ApiResponses(value = {
     @ApiResponse(code = 200, message = "Every users whose email contains the received string.", response = User.class, responseContainer = "List"),
-    @ApiResponse(code = 400, message = "bad input parameter.")})
+    @ApiResponse(code = 400, message = "Bad input parameter.")})
   @GetMapping(
     value = "/users",
     produces = {"application/json"}

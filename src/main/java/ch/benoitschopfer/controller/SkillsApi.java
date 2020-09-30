@@ -73,7 +73,7 @@ public interface SkillsApi {
    * DELETE /skills/{name} : Delete an existing skill.
    * Delete an existing skill. The connected user must be an admin.
    *
-   * @param name Name of the skill to fetch (required)
+   * @param name Name of the skill to delete (required)
    * @return Skill succesfully deleted (status code 204)
    * or Skill not found (status code 404).
    */
@@ -173,7 +173,7 @@ public interface SkillsApi {
    * Update an existing skill. The connected user must be an admin.
    *
    * @param name          Name of the skill to fetch (required).
-   * @param skillAddOrUpdate Skill to update (required).
+   * @param skillAddOrUpdate Skill's info to update (required).
    * @return skill succesfully updated (status code 200)
    * or Invalid skill supplied (status code 400)
    * or Skill not found (status code 404).
@@ -194,7 +194,7 @@ public interface SkillsApi {
   )
   @PreAuthorize("hasRole('ADMIN')")
   default ResponseEntity<Skill> updateSkill(@ApiParam(value = "Name of the skill to update.", required = true) @PathVariable("name") String name,
-                                                  @ApiParam(value = "Skill to update.", required = true) @Valid @RequestBody(required = true) SkillAddOrUpdate skillAddOrUpdate) {
+                                                  @ApiParam(value = "Skill's info to update.", required = true) @Valid @RequestBody(required = true) SkillAddOrUpdate skillAddOrUpdate) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
