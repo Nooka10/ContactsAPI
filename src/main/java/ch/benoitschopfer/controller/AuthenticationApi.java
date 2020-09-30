@@ -110,20 +110,9 @@ public interface AuthenticationApi {
     @ApiResponse(code = 401, message = "Unauthorized, you are not logged in.")
   })
   @PostMapping(
-    value = "/logout",
-    produces = {"application/json"},
-    consumes = {"application/json"}
+    value = "/logout"
   )
   default ResponseEntity<?> logout() {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"password\" : \"password\", \"rights\" : \"rights\", \"id\" : 0, \"email\" : \"email\", \"contacts\" : [ { \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }, { \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" } ] }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 

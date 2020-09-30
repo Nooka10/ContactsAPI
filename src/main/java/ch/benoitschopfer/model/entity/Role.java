@@ -26,6 +26,7 @@ public class Role extends RepresentationModel<Role> {
 
   public Role() {}
 
+  // Constructor use for testing
   public Role(String name) {
     this.name = name;
   }

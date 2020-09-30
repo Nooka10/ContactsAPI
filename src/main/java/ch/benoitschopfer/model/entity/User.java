@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -57,6 +58,25 @@ public class User extends RepresentationModel<User> {
   private Set<Role> roles = new HashSet<>();
 
   public User() {}
+
+  // Contructor used for testing
+  public User(long id,
+               @NotNull @NotBlank @Email @Size(min = 3, max = 30, message = "Email should have at least 3 characters") String email,
+               @NotNull @NotBlank @Size(min = 3, message = "Password should have at least 3 characters") String password,
+               @Nullable @Valid List<Contact> contacts,
+               @Nullable Set<Role> roles) {
+    this.id = id;
+    this.email = email;
+    this.password = password; // new BCryptPasswordEncoder().encode(password);
+    if (contacts != null && !contacts.isEmpty()) {
+      this.contacts = contacts;
+    }
+    if (roles != null && !roles.isEmpty()) {
+      this.roles = roles;
+    } else {
+      this.roles.add(new Role("ROLE_USER"));
+    }
+  }
 
   public long getId() {
     return id;

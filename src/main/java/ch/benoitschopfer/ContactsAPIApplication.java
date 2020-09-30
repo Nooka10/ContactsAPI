@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @ComponentScan(basePackages = {"ch.benoitschopfer", "ch.benoitschopfer.controller", "ch.benoitschopfer.configuration"})
-public class OpenAPI2SpringBoot implements CommandLineRunner {
+public class ContactsAPIApplication implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) throws Exception {
@@ -25,7 +25,7 @@ public class OpenAPI2SpringBoot implements CommandLineRunner {
     }
 
     public static void main(String[] args) throws Exception {
-        new SpringApplication(OpenAPI2SpringBoot.class).run(args);
+        new SpringApplication(ContactsAPIApplication.class).run(args);
     }
 
     static class ExitException extends RuntimeException implements ExitCodeGenerator {
