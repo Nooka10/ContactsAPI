@@ -74,7 +74,7 @@ public interface UsersApi {
     @ApiResponse(code = 400, message = "Bad input parameter.")})
   @GetMapping(
     value = "/users/{id}",
-    produces = {"application/json"}
+    produces = {"application/hal+json", "application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<User> getUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") long id) {
@@ -109,7 +109,7 @@ public interface UsersApi {
     @ApiResponse(code = 400, message = "Bad input parameter.")})
   @GetMapping(
     value = "/users",
-    produces = {"application/json"}
+    produces = {"application/hal+json", "application/json"}
   )
   @PreAuthorize("hasRole('ADMIN')")
   default ResponseEntity<Page<User>> getUsers(@ApiParam(value = "Returns all users whose email contains the received string.") @Valid @RequestParam(value = "email", required = false) String email, Pageable Pageable) {
@@ -147,7 +147,7 @@ public interface UsersApi {
     @ApiResponse(code = 404, message = "User not found.")})
   @PutMapping(
     value = "/users/{id}",
-    produces = {"application/json"},
+    produces = {"application/hal+json", "application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")

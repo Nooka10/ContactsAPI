@@ -44,6 +44,22 @@
     <option name="generatorPath" value="/usr/local/Cellar/openapi-generator/HEAD-874daad/libexec/openapi-generator-cli.jar" />
     <option name="jdkPath" value="Default" />
     <option name="language" value="spring" />
+    <option name="specificationPath" value="$PROJECT_DIR$/src/main/resources/ContactsAPI-1.0.2.yaml" />
+    <method v="2" />
+  </configuration>
+  <configuration default="false" name="SwaggerCodegen: ContactsAPI-1.0.0.yaml" type="SwaggerCodegen">
+    <option name="activeConfigurationType" value="FILE" />
+    <option name="configurationPath" value="$PROJECT_DIR$/src/main/resources/Config.json" />
+    <option name="customJreEnabled" value="false" />
+    <option name="customTemplatesPath" value="" />
+    <option name="enableDebugLogging" value="false" />
+    <option name="generateToPath" value="$PROJECT_DIR$" />
+    <option name="generationParameters">
+      <list />
+    </option>
+    <option name="generatorPath" value="/usr/local/Cellar/openapi-generator/HEAD-874daad/libexec/openapi-generator-cli.jar" />
+    <option name="jdkPath" value="Default" />
+    <option name="language" value="spring" />
     <option name="specificationPath" value="$PROJECT_DIR$/src/main/resources/ContactsAPI-1.0.0.yaml" />
     <method v="2" />
   </configuration>

@@ -1,6 +1,6 @@
 package ch.benoitschopfer.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.hateoas.RepresentationModel;
@@ -31,7 +31,7 @@ public class Skill extends RepresentationModel<Skill> {
   private String name;
 
   @JsonProperty("usersLevels")
-  @JsonManagedReference
+  @JsonBackReference
   @Valid
   @OneToMany(mappedBy = "skill", targetEntity = SkillLevel.class, fetch = FetchType.LAZY)
   private List<SkillLevel> usersLevels = new ArrayList<>();

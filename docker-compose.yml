@@ -13,6 +13,8 @@ services:
       - mysql_network
     ports:
     - 8080:8080
+    environment:
+      MYSQL_DB_HOST: mysql # must be the name of the mysql container
 
   mysql:
     image: mysql

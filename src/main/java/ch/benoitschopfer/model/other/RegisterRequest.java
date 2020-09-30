@@ -27,6 +27,7 @@ public class RegisterRequest implements Serializable {
   @Size(min = 3, message = "Password should have at least 3 characters")
   private String password;
 
+  // Added only to allow you to set easilly the user role
   private Set<String> role;
 
   public String getEmail() {

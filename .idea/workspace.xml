@@ -5,12 +5,105 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2830b932-7aad-4af5-9dd5-247e4e110688" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/OpenAPI2SpringBoot.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.openapi-generator-ignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.openapi-generator/FILES" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.openapi-generator/VERSION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.run/OpenAPI2SpringBoot.run.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.run/OpenAPI2SpringBoot.run.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.run/SwaggerCodegen_ ContactsAPI-1.0.0.yaml.run.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.run/SwaggerCodegen_ ContactsAPI-1.0.0.yaml.run.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ContactsAPI.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ContactsAPI.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/AuthenticationApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/AuthenticationApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/entity/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/ContactsApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/ContactsApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/ContactsApiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/ContactsApiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/RolesApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/RolesApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/SkillsApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/SkillsApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/UsersApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/controller/UsersApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/entity/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/entity/Skill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/entity/SkillLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/entity/SkillLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/other/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/model/other/RegisterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/SkillLevelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ch/benoitschopfer/repository/SkillLevelRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ContactsAPI-1.0.0.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ContactsAPI-1.0.0.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/Config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/ContactsAPI-1.0.2.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ContactsAPI-1.0.0-spring-boot.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ContactsAPI-1.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ContactsAPI-1.0.0.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ContactsAPI-1.0.2.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/ContactsAPIApplication$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/ContactsAPIApplication$ExitException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/ContactsAPIApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/RFC3339DateFormat.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/configuration/HomeController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/configuration/JWT/JwtAuthenticationEntryPoint.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/configuration/JWT/JwtRequestFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/configuration/JWT/JwtTokenUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/configuration/OpenAPIDocumentationConfig$BasePathAwareRelativePathProvider.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/configuration/OpenAPIDocumentationConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/configuration/SecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/controller/ApiUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/controller/AuthenticationApi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/controller/AuthenticationApiController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/controller/ContactsApi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/controller/ContactsApiController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/controller/RolesApi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/controller/RolesApiController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/controller/SkillsApi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/controller/SkillsApiController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/controller/UsersApi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/controller/UsersApiController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/error/MessageResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/entity/Contact.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/entity/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/entity/Skill.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/entity/SkillLevel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/entity/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/mappers/ContactMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/mappers/ContactMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/mappers/RoleMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/mappers/RoleMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/mappers/SkillLevelMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/mappers/SkillLevelMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/mappers/SkillMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/mappers/SkillMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/mappers/UserMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/mappers/UserMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/other/ContactAdd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/other/ContactUpdate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/other/JwtResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/other/LoginRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/other/RegisterRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/other/SkillAddOrUpdate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/other/SkillLevelAdd.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/other/SkillLevelUpdate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/model/other/UserUpdate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/repository/ContactRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/repository/RoleRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/repository/SkillLevelRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/repository/SkillRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/repository/UserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/service/UserDetailsImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ch/benoitschopfer/service/UserDetailsServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/sql/contactsapi.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/contactsapi.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/ch/benoitschopfer/model/mappers/ContactMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/ch/benoitschopfer/model/mappers/RoleMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/ch/benoitschopfer/model/mappers/SkillLevelMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/ch/benoitschopfer/model/mappers/SkillMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/ch/benoitschopfer/model/mappers/UserMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/ContactsAPI-1.0.2.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/application.properties" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +132,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="30ec949b-26bf-4949-8dd6-92aae4692114" />
+  </component>
   <component name="JsBowerSettings">
     <node-interpreter value="project" />
     <bower-package value="" />
@@ -54,7 +150,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="$USER_HOME$/.m2/wrapper/dists/apache-maven-3.6.3-bin/1iopthnavndlasol9gbrbg6bf2/apache-maven-3.6.3" />
+        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
       </MavenGeneralSettings>
     </option>
     <option name="importingSettings">
@@ -92,7 +188,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="add_unversioned_files" value="$PROJECT_DIR$/target/generated-sources/annotations/ch/benoitschopfer/model/mappers/UserMapperImpl.java" />
+    <property name="add_unversioned_files" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.openapi.externalSystem.service.settings.ExternalSystemGroupConfigurable" value="ALL" />
@@ -109,7 +205,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.49885058" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -136,6 +232,45 @@
     </key>
   </component>
   <component name="RunManager" selected="Swagger Codegen.SwaggerCodegen: ContactsAPI-1.0.0.yaml">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ch.benoitschopfer in ContactsAPI" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="ContactsAPI" />
+      <useClassPathOnly />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ch.benoitschopfer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+        </ENTRIES>
+      </extension>
+      <option name="PACKAGE_NAME" value="ch.benoitschopfer" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="PARAMETERS" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="SwaggerCodegen">
       <option name="activeConfigurationType" value="FILE" />
       <option name="configurationPath" value="$PROJECT_DIR$/Config.yaml" />
@@ -153,7 +288,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Spring Boot.OpenAPI2SpringBoot" />
+      <item itemvalue="JUnit.ch.benoitschopfer in ContactsAPI" />
+      <item itemvalue="Spring Boot.ContactsAPIApplication" />
       <item itemvalue="Swagger Codegen.SwaggerCodegen: ContactsAPI-1.0.0.yaml" />
     </list>
   </component>
@@ -184,7 +320,6 @@
       <workItem from="1601306917336" duration="21491000" />
       <workItem from="1601391039435" duration="61624000" />
       <workItem from="1601499704291" duration="7963000" />
-      <workItem from="1601508684673" duration="1517000" />
     </task>
     <servers />
   </component>
@@ -195,11 +330,11 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="184" y="23" width="1213" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601330333926">
+    <state x="184" y="23" width="1213" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601476997107">
       <screen x="0" y="23" width="1440" height="824" />
     </state>
     <state x="184" y="23" width="1213" height="748" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.823/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.823" timestamp="1600543495637" />
-    <state x="184" y="23" width="1213" height="824" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.824/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.824" timestamp="1601330333926" />
+    <state x="184" y="23" width="1213" height="824" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.824/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.824" timestamp="1601476997107" />
     <state x="184" y="23" width="1213" height="656" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.825/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.825" timestamp="1601400221319" />
     <state x="1685" y="-125" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.825/1440.-125.1920.1057/-1920.-120.1920.1057@1440.-125.1920.1057" timestamp="1600728152482" />
     <state x="184" y="23" width="1213" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.828/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.828" timestamp="1601479901275" />
@@ -249,6 +384,10 @@
       <screen x="0" y="23" width="1440" height="827" />
     </state>
     <state x="100" y="123" width="1240" height="623" key="DiffContextDialog/0.23.1440.827/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.827" timestamp="1601425754139" />
+    <state x="581" y="339" key="Github.ShareDialog" timestamp="1601510993817">
+      <screen x="0" y="23" width="1440" height="824" />
+    </state>
+    <state x="581" y="339" key="Github.ShareDialog/0.23.1440.824/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.824" timestamp="1601510993817" />
     <state width="1398" height="207" key="GridCell.Tab.0.bottom" timestamp="1601508624248">
       <screen x="0" y="23" width="1440" height="825" />
     </state>
@@ -355,11 +494,11 @@
       <screen x="0" y="23" width="1440" height="825" />
     </state>
     <state x="255" y="246" key="Registry/0.23.1440.825/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.825" timestamp="1600775886263" />
-    <state x="221" y="23" width="1024" height="825" key="SettingsEditor" timestamp="1601506718053">
-      <screen x="0" y="23" width="1440" height="825" />
+    <state x="221" y="23" width="1024" height="825" key="SettingsEditor" timestamp="1601511030409">
+      <screen x="0" y="23" width="1440" height="824" />
     </state>
     <state x="221" y="23" width="1105" height="724" key="SettingsEditor/0.23.1440.823/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.823" timestamp="1600449458756" />
-    <state x="221" y="23" width="1024" height="824" key="SettingsEditor/0.23.1440.824/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.824" timestamp="1600990419999" />
+    <state x="221" y="23" width="1024" height="824" key="SettingsEditor/0.23.1440.824/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.824" timestamp="1601511030409" />
     <state x="221" y="23" width="1024" height="825" key="SettingsEditor/0.23.1440.825/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.825" timestamp="1601506718053" />
     <state x="1735" y="-125" key="SettingsEditor/0.23.1440.825/1440.-125.1920.1057/-1920.-120.1920.1057@1440.-125.1920.1057" timestamp="1600729831682" />
     <state x="221" y="23" key="SettingsEditor/0.23.1440.827/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.827" timestamp="1600952847423" />
@@ -409,10 +548,10 @@
     </state>
     <state x="517" y="355" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.824/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.824" timestamp="1600440956585" />
     <state x="517" y="376" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.877/1440.-125.1920.990/-1920.-120.1920.1057@0.23.1440.877" timestamp="1601067313644" />
-    <state x="-1078" y="-44" width="1078" height="757" key="dock-window-1" timestamp="1601289471605">
+    <state x="-1078" y="-44" width="1078" height="757" key="dock-window-1" timestamp="1601504280909">
       <screen x="-1920" y="-120" width="1920" height="1057" />
     </state>
-    <state x="-1078" y="-44" width="1078" height="757" key="dock-window-1/0.23.1440.824/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.824" timestamp="1601289471605" />
+    <state x="-1053" y="-120" width="1053" height="925" key="dock-window-1/0.23.1440.824/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.824" timestamp="1601027134067" />
     <state x="-1078" y="-44" width="1078" height="757" key="dock-window-1/0.23.1440.825/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.825" timestamp="1601504280909" />
     <state x="-976" y="-1" width="976" height="806" key="dock-window-1/0.23.1440.828/1440.-125.1920.1057/-1920.-120.1920.1057@0.23.1440.828" timestamp="1601335490395" />
     <state x="1464" y="-125" width="1029" height="978" key="dock-window-2" timestamp="1601386835881">

@@ -50,7 +50,7 @@ public interface RolesApi {
     @ApiResponse(code = 409, message = "This role already exist.")})
   @PostMapping(
     value = "/roles",
-    produces = {"application/json"},
+    produces = {"application/hal+json", "application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasRole('ADMIN')")
@@ -75,7 +75,7 @@ public interface RolesApi {
     @ApiResponse(code = 400, message = "Bad input parameter.")})
   @GetMapping(
     value = "/roles",
-    produces = {"application/json"}
+    produces = {"application/hal+json", "application/json"}
   )
   @PreAuthorize("hasRole('ADMIN')")
   default ResponseEntity<Page<Role>> getRoles(Pageable pageable) {

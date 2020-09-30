@@ -50,7 +50,7 @@ public interface SkillsApi {
     @ApiResponse(code = 409, message = "This skill is already in the system.")})
   @PostMapping(
     value = "/skills",
-    produces = {"application/json"},
+    produces = {"application/hal+json", "application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasRole('ADMIN')")
@@ -114,7 +114,7 @@ public interface SkillsApi {
     @ApiResponse(code = 400, message = "Bad input parameter.")})
   @GetMapping(
     value = "/skills/{name}",
-    produces = {"application/json"}
+    produces = {"application/hal+json", "application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<Skill> getSkill(@ApiParam(value = "Name of the skill to fetch.", required = true) @PathVariable("name") String name) {
@@ -151,7 +151,7 @@ public interface SkillsApi {
     @ApiResponse(code = 400, message = "Bad input parameter.")})
   @GetMapping(
     value = "/skills",
-    produces = {"application/json"}
+    produces = {"application/hal+json", "application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<Page<Skill>> getSkills(@ApiParam(value = "Returns all skills whose name contains the received string.") @Valid @RequestParam(value = "name", required = false) String name, Pageable pageable) {
@@ -189,7 +189,7 @@ public interface SkillsApi {
     @ApiResponse(code = 404, message = "Skill not found.")})
   @PutMapping(
     value = "/skills/{name}",
-    produces = {"application/json"},
+    produces = {"application/hal+json", "application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasRole('ADMIN')")

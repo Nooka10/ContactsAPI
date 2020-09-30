@@ -46,7 +46,7 @@ public interface AuthenticationApi {
     @ApiResponse(code = 409, message = "This email adress is already used")})
   @PostMapping(
     value = "/register",
-    produces = {"application/json"},
+    produces = {"application/hal+json", "application/json"},
     consumes = {"application/json"}
   )
   default ResponseEntity<?> register(@ApiParam(value = "A JSON object containing the username and the password of the new user", required = true) @Valid @RequestBody RegisterRequest registerRequest) throws Exception {
@@ -81,7 +81,7 @@ public interface AuthenticationApi {
     @ApiResponse(code = 404, message = "User not found, unknown username.")})
   @PostMapping(
     value = "/login",
-    produces = {"application/json"},
+    produces = {"application/hal+json", "application/json"},
     consumes = {"application/json"}
   )
   default ResponseEntity<?> login(@ApiParam(value = "A JSON object containing the username and the password of the user to log in.", required = true) @Valid @RequestBody LoginRequest loginRequest) throws Exception {

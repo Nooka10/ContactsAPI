@@ -53,11 +53,11 @@ public interface ContactsApi {
     @ApiResponse(code = 409, message = "This email adress is already used.")})
   @PostMapping(
     value = "/contacts",
-    produces = {"application/json"},
+    produces = {"application/hal+json", "application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<List<Contact>> addContact(@ApiParam(value = "Contact to add.", required = true) @Valid @RequestBody(required = true) ContactAdd contactAdd) {
+  default ResponseEntity<?> addContact(@ApiParam(value = "Contact to add.", required = true) @Valid @RequestBody(required = true) ContactAdd contactAdd) {
     getRequest().ifPresent(request -> {
       for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
         if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -70,6 +70,145 @@ public interface ContactsApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
+
+  /**
+   * DELETE /contacts/{id} : Delete an existing contact.
+   * Delete an existing contact of the connected user.
+   * Only admins can delete a contact of another user.
+   *
+   * @param id Id of the contact to delete (required).
+   * @return contact succesfully deleted (status code 204)
+   * or Contact not found (status code 404).
+   */
+  @ApiOperation(value = "Delete an existing contact.", nickname = "deleteContact", notes = "Delete an existing contact of the connected user. Only admins can delete a contact of another user.", authorizations = {
+    @Authorization(value = "oauth2", scopes = {
+      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+    })
+  }, tags = {"contacts",})
+  @ApiResponses(value = {
+    @ApiResponse(code = 204, message = "Contact succesfully deleted."),
+    @ApiResponse(code = 404, message = "Contact not found.")})
+  @DeleteMapping(
+    value = "/contacts/{id}"
+  )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+  default ResponseEntity<?> deleteContact(@ApiParam(value = "Id of the contact to delete.", required = true) @PathVariable("id") long id) {
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+  }
+
+
+  /**
+   * GET /contacts/{id} : Get contact by id.
+   * Returns the contact corresponding to the received id of the connected user.
+   *
+   * @param id Id of the contact to fetch (required).
+   * @return Returns the contact corresponding to the received id of the connected user (status code 200)
+   * or bad input parameter (status code 400).
+   */
+  @ApiOperation(value = "Get contact by id.", nickname = "getContact", notes = "Returns the contact corresponding to the received id of the connected user.", response = Contact.class, responseContainer = "List", authorizations = {
+    @Authorization(value = "oauth2", scopes = {
+      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+    })
+  }, tags = {"contacts",})
+  @ApiResponses(value = {
+    @ApiResponse(code = 200, message = "Returns the contact corresponding to the received id of the connected user.", response = Contact.class, responseContainer = "List"),
+    @ApiResponse(code = 400, message = "Bad input parameter.")})
+  @GetMapping(
+    value = "/contacts/{id}",
+    produces = {"application/hal+json", "application/json"}
+  )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+  default ResponseEntity<?> getContact(@ApiParam(value = "Id of the contact to fetch.", required = true) @PathVariable("id") long id) {
+    getRequest().ifPresent(request -> {
+      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+          String exampleString = "{ \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }";
+          ApiUtil.setExampleResponse(request, "application/json", exampleString);
+          break;
+        }
+      }
+    });
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+  }
+
+  /**
+   * GET /contacts : Get all contacts.
+   * A user can get his contacts. An admin can get all contacts.
+   *
+   * @param name  Returns all contacts whose firstname or lastname contains the received string (optional).
+   * @param email Returns all contacts whose email contains the received string (optional).
+   * @return Search results matching criteria (status code 200)
+   * or bad input parameter (status code 400).
+   */
+  @ApiOperation(value = "Get all contacts.", nickname = "getContacts", notes = "A user can get his contacts. An admin can get all contacts.", response = Contact.class, responseContainer = "List", authorizations = {
+    @Authorization(value = "oauth2", scopes = {
+      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+    })
+  }, tags = {"contacts",})
+  @ApiResponses(value = {
+    @ApiResponse(code = 200, message = "Search results matching criteria.", response = Contact.class, responseContainer = "List"),
+    @ApiResponse(code = 400, message = "Bad input parameter.")})
+  @GetMapping(
+    value = "/contacts",
+    produces = {"application/hal+json", "application/json"}
+  )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+  default ResponseEntity<List<Contact>> getContacts(@ApiParam(value = "Returns all contacts whose firstname or lastname contains the received string.") @Valid @RequestParam(value = "name", required = false) String name,
+                                                    @ApiParam(value = "Returns all contacts whose email contains the received string.") @Valid @RequestParam(value = "email", required = false) String email) {
+    getRequest().ifPresent(request -> {
+      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+          String exampleString = "{ \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }";
+          ApiUtil.setExampleResponse(request, "application/json", exampleString);
+          break;
+        }
+      }
+    });
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+  }
+
+  /**
+   * PUT /contacts/{id} : Update an existing contact.
+   * Update an existing contact of the connected user.
+   *
+   * @param id              Id of the contact to update (required).
+   * @param contactUpdate Contact to update (required).
+   * @return contact succesfully updated (status code 200)
+   * or Invalid contact supplied (status code 400)
+   * or Contact not found (status code 404).
+   */
+  @ApiOperation(value = "Update an existing contact.", nickname = "updateContact", notes = "Update an existing contact of the connected user.", response = Contact.class, responseContainer = "List", authorizations = {
+    @Authorization(value = "oauth2", scopes = {
+      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+    })
+  }, tags = {"contacts",})
+  @ApiResponses(value = {
+    @ApiResponse(code = 200, message = "Contact succesfully updated.", response = Contact.class, responseContainer = "List"),
+    @ApiResponse(code = 400, message = "Invalid contact supplied."),
+    @ApiResponse(code = 404, message = "Contact not found.")})
+  @PutMapping(
+    value = "/contacts/{id}",
+    produces = {"application/hal+json", "application/json"},
+    consumes = {"application/json"}
+  )
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+  default ResponseEntity<?> updateContact(@ApiParam(value = "Id of the contact to update.", required = true) @PathVariable("id") long id,
+                                          @ApiParam(value = "Contact to update.", required = true) @Valid @RequestBody(required = true) ContactUpdate contactUpdate) {
+    getRequest().ifPresent(request -> {
+      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+          String exampleString = "{ \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }";
+          ApiUtil.setExampleResponse(request, "application/json", exampleString);
+          break;
+        }
+      }
+    });
+    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+  }
 
   /**
    * POST /contacts/{contactId}/skills/{skillId} : Adds a new skill level to a contact.
@@ -94,7 +233,7 @@ public interface ContactsApi {
     @ApiResponse(code = 409, message = "This skill is already in the system.")})
   @PostMapping(
     value = "/contacts/{contactId}/skills/{skillId}",
-    produces = {"application/json"},
+    produces = {"application/hal+json", "application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
@@ -112,33 +251,6 @@ public interface ContactsApi {
     });
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
-
-
-  /**
-   * DELETE /contacts/{id} : Delete an existing contact.
-   * Delete an existing contact of the connected user.
-   *
-   * @param id Id of the contact to delete (required).
-   * @return contact succesfully deleted (status code 204)
-   * or Contact not found (status code 404).
-   */
-  @ApiOperation(value = "Delete an existing contact.", nickname = "deleteContact", notes = "Delete an existing contact of the connected user.", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"contacts",})
-  @ApiResponses(value = {
-    @ApiResponse(code = 204, message = "Contact succesfully deleted."),
-    @ApiResponse(code = 404, message = "Contact not found.")})
-  @DeleteMapping(
-    value = "/contacts/{id}"
-  )
-  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<?> deleteContact(@ApiParam(value = "Id of the contact to delete.", required = true) @PathVariable("id") long id) {
-    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-  }
-
 
   /**
    * DELETE /contacts/{contactId}/skills/{skillId} : Delete a skill of an existing contact.
@@ -167,122 +279,6 @@ public interface ContactsApi {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
-
-  /**
-   * GET /contacts/{id} : Get contact by id.
-   * Returns the contact corresponding to the received id of the connected user.
-   *
-   * @param id Id of the contact to fetch (required).
-   * @return Returns the contact corresponding to the received id of the connected user (status code 200)
-   * or bad input parameter (status code 400).
-   */
-  @ApiOperation(value = "Get contact by id.", nickname = "getContact", notes = "Returns the contact corresponding to the received id of the connected user.", response = Contact.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"contacts",})
-  @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "Returns the contact corresponding to the received id of the connected user.", response = Contact.class, responseContainer = "List"),
-    @ApiResponse(code = 400, message = "Bad input parameter.")})
-  @GetMapping(
-    value = "/contacts/{id}",
-    produces = {"application/json"}
-  )
-  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<?> getContact(@ApiParam(value = "Id of the contact to fetch.", required = true) @PathVariable("id") long id) {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
-    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-  }
-
-
-  /**
-   * GET /contacts : Get all contacts.
-   * A user can get his contacts. An admin can get all contacts.
-   *
-   * @param name  Returns all contacts whose firstname or lastname contains the received string (optional).
-   * @param email Returns all contacts whose email contains the received string (optional).
-   * @return Search results matching criteria (status code 200)
-   * or bad input parameter (status code 400).
-   */
-  @ApiOperation(value = "Get all contacts.", nickname = "getContacts", notes = "A user can get his contacts. An admin can get all contacts.", response = Contact.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"contacts",})
-  @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "Search results matching criteria.", response = Contact.class, responseContainer = "List"),
-    @ApiResponse(code = 400, message = "Bad input parameter.")})
-  @GetMapping(
-    value = "/contacts",
-    produces = {"application/json"}
-  )
-  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<List<Contact>> getContacts(@ApiParam(value = "Returns all contacts whose firstname or lastname contains the received string.") @Valid @RequestParam(value = "name", required = false) String name,
-                                                    @ApiParam(value = "Returns all contacts whose email contains the received string.") @Valid @RequestParam(value = "email", required = false) String email) {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
-    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-  }
-
-
-  /**
-   * PUT /contacts/{id} : Update an existing contact.
-   * Update an existing contact of the connected user.
-   *
-   * @param id              Id of the contact to update (required).
-   * @param contactUpdate Contact to update (required).
-   * @return contact succesfully updated (status code 200)
-   * or Invalid contact supplied (status code 400)
-   * or Contact not found (status code 404).
-   */
-  @ApiOperation(value = "Update an existing contact.", nickname = "updateContact", notes = "Update an existing contact of the connected user.", response = Contact.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"contacts",})
-  @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "Contact succesfully updated.", response = Contact.class, responseContainer = "List"),
-    @ApiResponse(code = 400, message = "Invalid contact supplied."),
-    @ApiResponse(code = 404, message = "Contact not found.")})
-  @PutMapping(
-    value = "/contacts/{id}",
-    produces = {"application/json"},
-    consumes = {"application/json"}
-  )
-  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<?> updateContact(@ApiParam(value = "Id of the contact to update.", required = true) @PathVariable("id") long id,
-                                          @ApiParam(value = "Contact to update.", required = true) @Valid @RequestBody(required = true) ContactUpdate contactUpdate) {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
-    return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-  }
-
-
   /**
    * PUT /contacts/{contactId}/skills/{skillId} : Update a skill of a contact.
    * Update the skill level of an existing contact of the connected user.
@@ -306,7 +302,7 @@ public interface ContactsApi {
     @ApiResponse(code = 404, message = "Contact or skill not found.")})
   @PutMapping(
     value = "/contacts/{contactId}/skills/{skillId}",
-    produces = {"application/json"},
+    produces = {"application/hal+json", "application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")

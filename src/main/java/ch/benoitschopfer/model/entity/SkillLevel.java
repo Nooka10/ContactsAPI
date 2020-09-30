@@ -1,6 +1,7 @@
 package ch.benoitschopfer.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.OnDelete;
@@ -27,7 +28,7 @@ public class SkillLevel extends RepresentationModel<SkillLevel> {
   private long id;
 
   @JsonProperty("skill")
-  @JsonBackReference
+  @JsonManagedReference
   @ManyToOne
   @JoinColumn(name = "skill_id", referencedColumnName = "id", nullable = false)
   @OnDelete(action = OnDeleteAction.NO_ACTION)

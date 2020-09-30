@@ -15,4 +15,6 @@ public interface SkillLevelRepository extends JpaRepository<SkillLevel, Long>, J
   Optional<SkillLevel> findBySkill(Skill skill);
 
   Optional<SkillLevel> findBySkillAndSkilledContact(Skill skill, Contact contact);
+
+  Optional<SkillLevel> deleteBySkillAndSkilledContact(Skill skill, Contact contact);
 }
