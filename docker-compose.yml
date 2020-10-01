@@ -4,9 +4,6 @@ services:
     # restart: on-failure
     container_name: contacts_api
     build: ./
-    volumes:
-      - ~/.m2:/root/.m2
-    command: mvn clean spring-boot:run
     depends_on:
       - mysql
     networks:
@@ -27,16 +24,11 @@ services:
       - mysql_network
     environment:
       MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - mysqlDatabase:/var/lib/mysql
     healthcheck:
       test: "/usr/bin/mysql --user=contactsapi --password=contactsapi--execute \"SHOW DATABASES;\""
       interval: 2s
       timeout: 20s
       retries: 10
-
-volumes:
-  mysqlDatabase:
 
 networks:
   mysql_network:
