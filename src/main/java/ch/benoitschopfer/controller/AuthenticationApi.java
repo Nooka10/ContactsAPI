@@ -22,7 +22,7 @@ import java.util.Optional;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 @Validated
-// @Api(value = "authentication", description = "the authentication API")
+@Api(value = "authentication", description = "the authentication API", tags = "login")
 public interface AuthenticationApi {
 
   default Optional<NativeWebRequest> getRequest() {
