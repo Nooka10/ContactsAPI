@@ -3,9 +3,10 @@
 Le projet peut être démarré dans un container docker à l'aide des commandes suivantes:
 
 ```
-mvn clean install
 docker network create mysql_network
-docker-compose up --build
+docker-compose up -d --build mysql
+mvn clean install
+docker-compose up -d --build contacts_api
 ```
 
 L'API est utilisable via Swagger-ui atteignable à l'adresse http://localhost:8080/.
