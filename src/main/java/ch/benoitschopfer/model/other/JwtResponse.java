@@ -1,6 +1,6 @@
 package ch.benoitschopfer.model.other;
 
-import ch.benoitschopfer.service.UserDetailsImpl;
+import ch.benoitschopfer.model.entity.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
@@ -13,9 +13,9 @@ public class JwtResponse implements Serializable {
   private final String tokenType = "Bearer";
 
   @JsonProperty("user")
-  private final UserDetailsImpl user;
+  private final User user;
 
-  public JwtResponse(String token, UserDetailsImpl user) {
+  public JwtResponse(String token, User user) {
     this.token = token;
     this.user = user;
   }
@@ -28,7 +28,7 @@ public class JwtResponse implements Serializable {
     return tokenType;
   }
 
-  private UserDetailsImpl getUser() {
+  public User getUser() {
     return user;
   }
 }

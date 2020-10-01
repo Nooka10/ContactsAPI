@@ -89,7 +89,9 @@ public class AuthenticationApiController implements AuthenticationApi {
       .map(item -> item.getAuthority())
       .collect(Collectors.toList());
 
-    return ResponseEntity.ok(new JwtResponse(jwt, userDetails));
+    User user = userRepository.findByEmail(userDetails.getEmail()).get();
+
+    return ResponseEntity.ok(new JwtResponse(jwt, user));
   }
 
   @Override

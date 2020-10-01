@@ -1,8 +1,9 @@
-/*
 package ch.benoitschopfer;
 
+import ch.benoitschopfer.model.entity.User;
 import ch.benoitschopfer.model.other.EnumRoles;
 import ch.benoitschopfer.model.other.JwtResponse;
+import ch.benoitschopfer.model.other.LoginRequest;
 import ch.benoitschopfer.model.other.RegisterRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(
   webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -48,16 +48,12 @@ public class AuthenticationApiControllerIntegrationTests {
     ResponseEntity<JwtResponse> responseEntity = this.restTemplate.postForEntity(createUrl("/auth/register"), registerRequest, JwtResponse.class);
     assertEquals(201, responseEntity.getStatusCodeValue());
     assertNotNull(responseEntity.getBody());
-    */
-/*
-    User newUser = responseEntity.getBody();
+    User newUser = responseEntity.getBody().getUser();
     assertTrue(newUser.isAdmin());
     assertEquals("admin@owt.ch", newUser.getEmail());
     assertTrue(newUser.getContacts().isEmpty());
     assertFalse(newUser.getRoles().isEmpty());
     assertEquals(EnumRoles.ROLE_ADMIN.toString(), newUser.getRoles().get(0).getName());
-     *//*
-
   }
 
   @Test
@@ -68,16 +64,12 @@ public class AuthenticationApiControllerIntegrationTests {
     ResponseEntity<JwtResponse> responseEntity = this.restTemplate.postForEntity(createUrl("/auth/register"), registerRequest, JwtResponse.class);
     assertEquals(201, responseEntity.getStatusCodeValue());
     assertNotNull(responseEntity.getBody());
-    */
-/*
-    User newUser = responseEntity.getBody();
+    User newUser = responseEntity.getBody().getUser();
     assertFalse(newUser.isAdmin());
     assertEquals("user@owt.ch", newUser.getEmail());
     assertTrue(newUser.getContacts().isEmpty());
     assertFalse(newUser.getRoles().isEmpty());
     assertEquals(EnumRoles.ROLE_USER.toString(), newUser.getRoles().get(0).getName());
-     *//*
-
   }
 
   @Test
@@ -89,26 +81,40 @@ public class AuthenticationApiControllerIntegrationTests {
     assertEquals(201, responseEntityOk.getStatusCodeValue());
 
     ResponseEntity<String> responseEntityError = this.restTemplate.postForEntity(createUrl("/auth/register"), registerRequest, String.class);
-    assertEquals(400, responseEntityError.getStatusCodeValue());
+    assertEquals(409, responseEntityError.getStatusCodeValue());
     assertNotNull(responseEntityError.getBody());
-    assertEquals("{\"message\":\"Error: This email is already used!\"}", responseEntityError.getBody());
+    assertEquals("Error: This email is already used!", responseEntityError.getBody());
   }
 
-*/
-/*
   @Test
-  @Sql(scripts = {"/authenticationTests/register.sql"})
+  @Sql(scripts = {"/authenticationTests/login.sql"})
   public void loginAsAdmin() {
     LoginRequest loginRequest = new LoginRequest("admin@owt.ch", "admin");
 
-    ResponseEntity<JwtResponse> responseEntityOk = this.restTemplate.postForEntity(createUrl("/auth/login"), loginRequest, JwtResponse.class);
-    assertEquals(201, responseEntityOk.getStatusCodeValue());
+    ResponseEntity<JwtResponse> responseEntity = this.restTemplate.postForEntity(createUrl("/auth/login"), loginRequest, JwtResponse.class);
+    assertEquals(200, responseEntity.getStatusCodeValue());
+    assertNotNull(responseEntity.getBody());
+    assertEquals("Bearer", responseEntity.getBody().getTokenType());
+    User user = responseEntity.getBody().getUser();
 
-    ResponseEntity<String> responseEntityError = this.restTemplate.postForEntity(createUrl("/auth/register"), loginRequest, String.class);
-    assertEquals(400, responseEntityError.getStatusCodeValue());
-    assertNotNull(responseEntityError.getBody());
-    assertEquals("{\"message\":\"Error: This email is already used!\"}", responseEntityError.getBody());
-  }*//*
+    assertEquals(1, user.getId());
+    assertEquals("admin@owt.ch", user.getEmail());
+    assertTrue(user.isAdmin());
+  }
 
+  @Test
+  @Sql(scripts = {"/authenticationTests/login.sql"})
+  public void loginAsUser() {
+    LoginRequest loginRequest = new LoginRequest("user@owt.ch", "user");
+
+    ResponseEntity<JwtResponse> responseEntity = this.restTemplate.postForEntity(createUrl("/auth/login"), loginRequest, JwtResponse.class);
+    assertEquals(200, responseEntity.getStatusCodeValue());
+    assertNotNull(responseEntity.getBody());
+    assertEquals("Bearer", responseEntity.getBody().getTokenType());
+    User user = responseEntity.getBody().getUser();
+
+    assertEquals(1, user.getId());
+    assertEquals("user@owt.ch", user.getEmail());
+    assertFalse(user.isAdmin());
+  }
 }
-*/
