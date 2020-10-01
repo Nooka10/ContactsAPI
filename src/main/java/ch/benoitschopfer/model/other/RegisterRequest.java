@@ -28,14 +28,14 @@ public class RegisterRequest implements Serializable {
   private String password;
 
   // Added only to allow you to set easilly the user role
-  private Set<String> role;
+  private Set<EnumRoles> role;
 
   public RegisterRequest() {}
 
   // Used for tests
   public RegisterRequest(@NotNull @Email @Size(min = 3, message = "Email should have at least 3 characters") String email,
                          @NotNull @Size(min = 3, message = "Password should have at least 3 characters") String password,
-                         Set<String> role) {
+                         Set<EnumRoles> role) {
     this.email = email;
     this.password = password;
     this.role = role;
@@ -49,7 +49,7 @@ public class RegisterRequest implements Serializable {
     return password;
   }
 
-  public Set<String> getRole() {
+  public Set<EnumRoles> getRole() {
     return this.role;
   }
 }

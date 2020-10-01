@@ -5,6 +5,7 @@ import ch.benoitschopfer.error.MessageResponse;
 import ch.benoitschopfer.model.entity.Role;
 import ch.benoitschopfer.model.entity.User;
 import ch.benoitschopfer.model.mappers.UserMapper;
+import ch.benoitschopfer.model.other.EnumRoles;
 import ch.benoitschopfer.model.other.JwtResponse;
 import ch.benoitschopfer.model.other.LoginRequest;
 import ch.benoitschopfer.model.other.RegisterRequest;
@@ -112,8 +113,8 @@ public class AuthenticationApiController implements AuthenticationApi {
       }
 
       User user = userMapper.registerRequestToUser(registerRequest);
-      for (String role : registerRequest.getRole()) {
-        Optional<Role> r = roleRepository.findByName(role);
+      for (EnumRoles role : registerRequest.getRole()) {
+        Optional<Role> r = roleRepository.findByName(role.toString());
         user.addRole(r.get());
       }
       User savedUser = userRepository.save(user);

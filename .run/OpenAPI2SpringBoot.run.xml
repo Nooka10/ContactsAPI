@@ -23,6 +23,7 @@
     <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
     <envs>
       <env name="MYSQL_DB_HOST" value="localhost:3306" />
+      <env name="MYSQL_DATABASE" value="contactsapi" />
     </envs>
     <method v="2">
       <option name="Make" enabled="true" />
