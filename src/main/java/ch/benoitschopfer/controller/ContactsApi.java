@@ -6,13 +6,13 @@
 package ch.benoitschopfer.controller;
 
 import ch.benoitschopfer.model.entity.Contact;
+import ch.benoitschopfer.model.entity.SkillLevel;
 import ch.benoitschopfer.model.other.ContactAdd;
 import ch.benoitschopfer.model.other.ContactUpdate;
 import ch.benoitschopfer.model.other.SkillLevelAdd;
 import ch.benoitschopfer.model.other.SkillLevelUpdate;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +25,7 @@ import java.util.Optional;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 @Validated
-@Api(value = "contacts", description = "the contacts API", tags = "contacts")
+@Api(value = "contacts", tags = "contacts")
 public interface ContactsApi {
 
   default Optional<NativeWebRequest> getRequest() {
@@ -38,35 +38,32 @@ public interface ContactsApi {
    *
    * @param contactAdd Contact to add (required).
    * @return Contact created (status code 201).
-   * or Invalid input, received object is invalid (status code 400)
-   * or This email adress is already used (status code 409).
+   * or Unable to create a new contact (status code 400).
    */
-  @ApiOperation(value = "Adds a new contact.", nickname = "addContact", notes = "Adds a new contact for the connected user.", response = Contact.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"contacts",})
+  @ApiOperation(
+    value = "Adds a new contact.",
+    nickname = "addContact",
+    notes = "Adds a new contact for the connected user.",
+    response = Contact.class,
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"contacts"}
+  )
   @ApiResponses(value = {
-    @ApiResponse(code = 201, message = "Contact created.", response = Contact.class, responseContainer = "List"),
-    @ApiResponse(code = 400, message = "Invalid input, received object is invalid."),
-    @ApiResponse(code = 409, message = "This email adress is already used.")})
+    @ApiResponse(code = 201, message = "Contact created.", response = Contact.class),
+    @ApiResponse(code = 400, message = "Unable to create a new contact.")
+  })
   @PostMapping(
     value = "/contacts",
-    produces = {"application/hal+json", "application/json"},
+    produces = {"application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<?> addContact(@ApiParam(value = "Contact to add.", required = true) @Valid @RequestBody(required = true) ContactAdd contactAdd) {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
@@ -78,17 +75,26 @@ public interface ContactsApi {
    *
    * @param id Id of the contact to delete (required).
    * @return contact succesfully deleted (status code 204)
+   * or Unauthorized (status code 401)
    * or Contact not found (status code 404).
    */
-  @ApiOperation(value = "Delete an existing contact.", nickname = "deleteContact", notes = "Delete an existing contact of the connected user. Only admins can delete a contact of another user.", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"contacts",})
+  @ApiOperation(
+    value = "Delete an existing contact.",
+    nickname = "deleteContact",
+    notes = "Delete an existing contact of the connected user. Only admins can delete a contact of another user.",
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"contacts"}
+  )
   @ApiResponses(value = {
     @ApiResponse(code = 204, message = "Contact succesfully deleted."),
-    @ApiResponse(code = 404, message = "Contact not found.")})
+    @ApiResponse(code = 401, message = "Unauthorized."),
+    @ApiResponse(code = 404, message = "Contact not found.")
+  })
   @DeleteMapping(
     value = "/contacts/{id}"
   )
@@ -104,32 +110,30 @@ public interface ContactsApi {
    *
    * @param id Id of the contact to fetch (required).
    * @return Returns the contact corresponding to the received id of the connected user (status code 200)
-   * or bad input parameter (status code 400).
+   * or Contact not found (status code 404).
    */
-  @ApiOperation(value = "Get contact by id.", nickname = "getContact", notes = "Returns the contact corresponding to the received id of the connected user.", response = Contact.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"contacts",})
+  @ApiOperation(
+    value = "Get contact by id.",
+    nickname = "getContact",
+    notes = "Returns the contact corresponding to the received id of the connected user.",
+    response = Contact.class,
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"contacts"}
+  )
   @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "Returns the contact corresponding to the received id of the connected user.", response = Contact.class, responseContainer = "List"),
-    @ApiResponse(code = 400, message = "Bad input parameter.")})
+    @ApiResponse(code = 200, message = "Returns the contact corresponding to the received id of the connected user.", response = Contact.class),
+    @ApiResponse(code = 404, message = "Contact not found.")})
   @GetMapping(
     value = "/contacts/{id}",
-    produces = {"application/hal+json", "application/json"}
+    produces = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<?> getContact(@ApiParam(value = "Id of the contact to fetch.", required = true) @PathVariable("id") long id) {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
@@ -142,31 +146,31 @@ public interface ContactsApi {
    * @return Search results matching criteria (status code 200)
    * or bad input parameter (status code 400).
    */
-  @ApiOperation(value = "Get all contacts.", nickname = "getContacts", notes = "A user can get his contacts. An admin can get all contacts.", response = Contact.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"contacts",})
+  @ApiOperation(
+    value = "Get all contacts.",
+    nickname = "getContacts",
+    notes = "A user can get his contacts. An admin can get all contacts.",
+    response = Contact.class,
+    responseContainer = "List",
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"contacts"}
+  )
   @ApiResponses(value = {
     @ApiResponse(code = 200, message = "Search results matching criteria.", response = Contact.class, responseContainer = "List"),
     @ApiResponse(code = 400, message = "Bad input parameter.")})
   @GetMapping(
     value = "/contacts",
-    produces = {"application/hal+json", "application/json"}
+    produces = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<List<Contact>> getContacts(@ApiParam(value = "Returns all contacts whose firstname or lastname contains the received string.") @Valid @RequestParam(value = "name", required = false) String name,
-                                                    @ApiParam(value = "Returns all contacts whose email contains the received string.") @Valid @RequestParam(value = "email", required = false) String email) {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
+  default ResponseEntity<List<Contact>> getContacts(
+    @ApiParam(value = "Returns all contacts whose firstname or lastname contains the received string.") @Valid @RequestParam(value = "name", required = false) String name,
+    @ApiParam(value = "Returns all contacts whose email contains the received string.") @Valid @RequestParam(value = "email", required = false) String email) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
@@ -174,39 +178,36 @@ public interface ContactsApi {
    * PUT /contacts/{id} : Update an existing contact.
    * Update an existing contact of the connected user.
    *
-   * @param id              Id of the contact to update (required).
+   * @param id            Id of the contact to update (required).
    * @param contactUpdate Contact to update (required).
    * @return contact succesfully updated (status code 200)
-   * or Invalid contact supplied (status code 400)
    * or Contact not found (status code 404).
    */
-  @ApiOperation(value = "Update an existing contact.", nickname = "updateContact", notes = "Update an existing contact of the connected user.", response = Contact.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"contacts",})
+  @ApiOperation(
+    value = "Update an existing contact.",
+    nickname = "updateContact",
+    notes = "Update an existing contact of the connected user.",
+    response = Contact.class,
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"contacts"}
+  )
   @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "Contact succesfully updated.", response = Contact.class, responseContainer = "List"),
-    @ApiResponse(code = 400, message = "Invalid contact supplied."),
+    @ApiResponse(code = 200, message = "Contact succesfully updated.", response = Contact.class),
     @ApiResponse(code = 404, message = "Contact not found.")})
   @PutMapping(
     value = "/contacts/{id}",
-    produces = {"application/hal+json", "application/json"},
+    produces = {"application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<?> updateContact(@ApiParam(value = "Id of the contact to update.", required = true) @PathVariable("id") long id,
-                                          @ApiParam(value = "Contact to update.", required = true) @Valid @RequestBody(required = true) ContactUpdate contactUpdate) {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
+  default ResponseEntity<?> updateContact(
+    @ApiParam(value = "Id of the contact to update.", required = true) @PathVariable("id") long id,
+    @ApiParam(value = "Contact to update.", required = true) @Valid @RequestBody(required = true) ContactUpdate contactUpdate) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
@@ -214,41 +215,43 @@ public interface ContactsApi {
    * POST /contacts/{contactId}/skills/{skillId} : Adds a new skill level to a contact.
    * Adds a new skill to a contact of the connected user.
    *
-   * @param contactId       Id of the contact to whom the skill will be added (required).
-   * @param skillId         Id of the skill to add(required).
+   * @param contactId     Id of the contact to whom the skill will be added (required).
+   * @param skillId       Id of the skill to add(required).
    * @param skillLevelAdd SkillLevel to add (required).
    * @return Contact's skill level succesfully created (status code 201)
    * or Invalid input, received object is invalid (status code 400)
-   * or This skill is already in the system (status code 409).
+   * or Contact or Skill not found. (status code 404)
+   * or This contact has already this skill (status code 409).
    */
-  @ApiOperation(value = "Adds a new skill level to a contact.", nickname = "addContactSkill", notes = "Adds a new skill to a contact of the connected user.", response = Contact.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"contactSkills",})
+  @ApiOperation(
+    value = "Adds a new skill level to a contact.",
+    nickname = "addContactSkill",
+    notes = "Adds a new skill to a contact of the connected user.",
+    response = SkillLevel.class,
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"contacts"}
+  )
   @ApiResponses(value = {
-    @ApiResponse(code = 201, message = "Contact's skill level succesfully created.", response = Contact.class, responseContainer = "List"),
+    @ApiResponse(code = 201, message = "Contact's skill level succesfully created.", response = SkillLevel.class),
     @ApiResponse(code = 400, message = "Invalid input, received object is invalid."),
-    @ApiResponse(code = 409, message = "This skill is already in the system.")})
+    @ApiResponse(code = 404, message = "Contact or Skill not found."),
+    @ApiResponse(code = 409, message = "This contact has already this skill.")}
+  )
   @PostMapping(
     value = "/contacts/{contactId}/skills/{skillId}",
-    produces = {"application/hal+json", "application/json"},
+    produces = {"application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<?> addContactSkill(@ApiParam(value = "Id of the contact to whom the skill will be added.", required = true) @PathVariable("contactId") Long contactId,
-                                            @ApiParam(value = "Id of the skill to add.", required = true) @PathVariable("skillId") Long skillId,
-                                            @ApiParam(value = "SkillLevel to add.", required = true) @Valid @RequestBody(required = true) SkillLevelAdd skillLevelAdd) {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
+  default ResponseEntity<?> addContactSkill(
+    @ApiParam(value = "Id of the contact to whom the skill will be added.", required = true) @PathVariable("contactId") Long contactId,
+    @ApiParam(value = "Id of the skill to add.", required = true) @PathVariable("skillId") Long skillId,
+    @ApiParam(value = "SkillLevel to add.", required = true) @Valid @RequestBody(required = true) SkillLevelAdd skillLevelAdd) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
@@ -261,21 +264,28 @@ public interface ContactsApi {
    * @return contact's skill succesfully deleted (status code 204)
    * or Contact not found (status code 404)
    */
-  @ApiOperation(value = "Delete a skill of an existing contact.", nickname = "deleteContactSkill", notes = "Delete a skill of an existing contact of the connected user.", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"contactSkills",})
+  @ApiOperation(
+    value = "Delete a skill of an existing contact.",
+    nickname = "deleteContactSkill",
+    notes = "Delete a skill of an existing contact of the connected user.",
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"contacts"}
+  )
   @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "Contact's skill succesfully deleted."),
+    @ApiResponse(code = 204, message = "Contact's skill succesfully deleted."),
     @ApiResponse(code = 404, message = "Contact not found.")})
   @DeleteMapping(
     value = "/contacts/{contactId}/skills/{skillId}"
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<?> deleteContactSkill(@ApiParam(value = "Id of the contact to whom whe want to delete a skill.", required = true) @PathVariable("contactId") Long contactId,
-                                               @ApiParam(value = "Id of the skill to modify or delete.", required = true) @PathVariable("skillId") Long skillId) {
+  default ResponseEntity<?> deleteContactSkill(
+    @ApiParam(value = "Id of the contact to whom whe want to delete a skill.", required = true) @PathVariable("contactId") Long contactId,
+    @ApiParam(value = "Id of the skill to modify or delete.", required = true) @PathVariable("skillId") Long skillId) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 
@@ -283,41 +293,42 @@ public interface ContactsApi {
    * PUT /contacts/{contactId}/skills/{skillId} : Update a skill of a contact.
    * Update the skill level of an existing contact of the connected user.
    *
-   * @param contactId          Id of the contact to whom we want to update a skill (required).
-   * @param skillId            Id of the skill to update (required).
+   * @param contactId        Id of the contact to whom we want to update a skill (required).
+   * @param skillId          Id of the skill to update (required).
    * @param skillLevelUpdate Skill level to update (required).
    * @return Contact's skill level succesfully updated (status code 200)
    * or Invalid skill lever supplied (status code 400)
+   * or Unauthorized (status code 401)
    * or Contact or skill not found (status code 404).
    */
-  @ApiOperation(value = "Update a skill of a contact.", nickname = "updateContactSkill", notes = "Update the skill level of an existing contact of the connected user.", response = Contact.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"contactSkills",})
+  @ApiOperation(
+    value = "Update a skill of a contact.",
+    nickname = "updateContactSkill",
+    notes = "Update the skill level of an existing contact of the connected user.",
+    response = SkillLevel.class,
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"contacts"}
+  )
   @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "Contact's skill level succesfully updated.", response = Contact.class, responseContainer = "List"),
+    @ApiResponse(code = 200, message = "Contact's skill level succesfully updated.", response = SkillLevel.class),
     @ApiResponse(code = 400, message = "Invalid skill lever supplied."),
+    @ApiResponse(code = 401, message = "Unauthorized."),
     @ApiResponse(code = 404, message = "Contact or skill not found.")})
   @PutMapping(
     value = "/contacts/{contactId}/skills/{skillId}",
-    produces = {"application/hal+json", "application/json"},
+    produces = {"application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<?> updateContactSkill(@ApiParam(value = "Id of the contact to whom we want to update a skill.", required = true) @PathVariable("contactId") Long contactId,
-                                               @ApiParam(value = "Id of the skill to update.", required = true) @PathVariable("skillId") Long skillId,
-                                               @ApiParam(value = "Skill level to update.", required = true) @Valid @RequestBody(required = true) SkillLevelUpdate skillLevelUpdate) {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
+  default ResponseEntity<?> updateContactSkill(
+    @ApiParam(value = "Id of the contact to whom we want to update a skill.", required = true) @PathVariable("contactId") Long contactId,
+    @ApiParam(value = "Id of the skill to update.", required = true) @PathVariable("skillId") Long skillId,
+    @ApiParam(value = "Skill level to update.", required = true) @Valid @RequestBody(required = true) SkillLevelUpdate skillLevelUpdate) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 }

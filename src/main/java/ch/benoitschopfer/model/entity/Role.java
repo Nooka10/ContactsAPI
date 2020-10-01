@@ -1,12 +1,10 @@
 package ch.benoitschopfer.model.entity;
 
-import org.springframework.hateoas.RepresentationModel;
-
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Role extends RepresentationModel<Role> {
+public class Role {
   public static final String USER = "ROLE_USER";
   public static final String ADMIN = "ROLE_ADMIN";
 

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.hateoas.RepresentationModel;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -22,7 +21,7 @@ import java.util.*;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 @Entity
-public class User extends RepresentationModel<User> {
+public class User {
   @JsonProperty("id")
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +42,7 @@ public class User extends RepresentationModel<User> {
   private String password;
 
   @JsonProperty("contacts")
-  @JsonManagedReference
+  @JsonManagedReference(value = "linkedUser")
   @Valid
   @OneToMany(mappedBy = "linkedUser", targetEntity = Contact.class, fetch = FetchType.LAZY)
   @OnDelete(action = OnDeleteAction.CASCADE)
@@ -55,7 +54,7 @@ public class User extends RepresentationModel<User> {
   @JoinTable(name = "user_roles",
     joinColumns = @JoinColumn(name = "user_id", nullable = false),
     inverseJoinColumns = @JoinColumn(name = "role_id", nullable = false))
-  private Set<Role> roles = new HashSet<>();
+  private List<Role> roles = new ArrayList<>();
 
   public User() {}
 
@@ -64,7 +63,7 @@ public class User extends RepresentationModel<User> {
                @NotNull @NotBlank @Email @Size(min = 3, max = 30, message = "Email should have at least 3 characters") String email,
                @NotNull @NotBlank @Size(min = 3, message = "Password should have at least 3 characters") String password,
                @Nullable @Valid List<Contact> contacts,
-               @Nullable Set<Role> roles) {
+               @Nullable List<Role> roles) {
     this.id = id;
     this.email = email;
     this.password = password; // new BCryptPasswordEncoder().encode(password);
@@ -94,7 +93,7 @@ public class User extends RepresentationModel<User> {
     return contacts;
   }
 
-  public Set<Role> getRoles() {
+  public List<Role> getRoles() {
     return roles;
   }
 
@@ -120,13 +119,13 @@ public class User extends RepresentationModel<User> {
     this.password = bCryptPasswordEncoder.encode(password);
   }
 
-  public void addRole(Role role) {
+  public void addRole(@NotNull @Valid Role role) {
     if (!this.roles.contains(role)) {
       this.roles.add(role);
     }
   }
 
-  public void addContact(Contact contact) {
+  public void addContact(@NotNull @Valid Contact contact) {
     if (!this.contacts.contains(contact)) {
       this.contacts.add(contact);
     }

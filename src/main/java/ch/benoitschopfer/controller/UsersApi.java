@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 @Validated
-@Api(value = "users", description = "the users API", tags = "users")
+@Api(value = "users", tags = "users")
 public interface UsersApi {
 
   default Optional<NativeWebRequest> getRequest() {
@@ -38,7 +38,7 @@ public interface UsersApi {
    * @return User succesfully deleted (status code 204) or User not found (status code 404).
    */
   @ApiOperation(value = "Delete an existing user.", nickname = "deleteUser", notes = "Delete the connected user. Only an admin can delete other user than himself.", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
+    @Authorization(value = "bearer", scopes = {
       @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
       @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
@@ -64,7 +64,7 @@ public interface UsersApi {
    * @return search results matching criteria (status code 200) or bad input parameter (status code 400).
    */
   @ApiOperation(value = "Get user by id.", nickname = "getUser", notes = "Returns the user corresponding to the received name. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.", response = User.class, authorizations = {
-    @Authorization(value = "oauth2", scopes = {
+    @Authorization(value = "bearer", scopes = {
       @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
       @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
@@ -74,7 +74,7 @@ public interface UsersApi {
     @ApiResponse(code = 400, message = "Bad input parameter.")})
   @GetMapping(
     value = "/users/{id}",
-    produces = {"application/hal+json", "application/json"}
+    produces = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<User> getUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") long id) {
@@ -100,7 +100,7 @@ public interface UsersApi {
    * @return Every users whose email contains the received string (status code 200) or bad input parameter (status code 400).
    */
   @ApiOperation(value = "Get all users.", nickname = "getUsers", notes = "By passing in the appropriate options, admins can search for specifics users in the system.", response = User.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
+    @Authorization(value = "bearer", scopes = {
       @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
   }, tags = {"users",})
@@ -109,7 +109,7 @@ public interface UsersApi {
     @ApiResponse(code = 400, message = "Bad input parameter.")})
   @GetMapping(
     value = "/users",
-    produces = {"application/hal+json", "application/json"}
+    produces = {"application/json"}
   )
   @PreAuthorize("hasRole('ADMIN')")
   default ResponseEntity<Page<User>> getUsers(@ApiParam(value = "Returns all users whose email contains the received string.") @Valid @RequestParam(value = "email", required = false) String email, Pageable Pageable) {
@@ -136,7 +136,7 @@ public interface UsersApi {
    * @return User succesfully updated (status code 200) or Invalid user supplied (status code 400) or User not found (status code 404).
    */
   @ApiOperation(value = "Update an existing user.", nickname = "updateUser", notes = "Update the connected user. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.", response = User.class, authorizations = {
-    @Authorization(value = "oauth2", scopes = {
+    @Authorization(value = "bearer", scopes = {
       @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
       @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
@@ -147,7 +147,7 @@ public interface UsersApi {
     @ApiResponse(code = 404, message = "User not found.")})
   @PutMapping(
     value = "/users/{id}",
-    produces = {"application/hal+json", "application/json"},
+    produces = {"application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")

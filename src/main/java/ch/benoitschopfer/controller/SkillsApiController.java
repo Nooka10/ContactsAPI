@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,11 +48,10 @@ public class SkillsApiController implements SkillsApi {
       Skill savedSkill = skillRepository.save(skillMapper.skillAddToSkill(skillAddOrUpdate));
 
       String location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/skills/{id}").buildAndExpand(savedSkill.getId()).toUriString();
-      EntityModel<Skill> SkillResource = new EntityModel<>(savedSkill, Link.of(location, "self"));
 
       return ResponseEntity
         .created(new URI(location))
-        .body(SkillResource);
+        .body(savedSkill);
     } catch (URISyntaxException e) {
       return ResponseEntity.badRequest().body("Unable to create " + skillAddOrUpdate);
     }

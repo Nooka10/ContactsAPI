@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -22,7 +21,7 @@ import java.util.Objects;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 @Entity
-public class Contact extends RepresentationModel<Contact> {
+public class Contact {
   @JsonProperty("id")
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,13 +52,13 @@ public class Contact extends RepresentationModel<Contact> {
   private String mobilephone;
 
   @JsonProperty("linkedUser")
-  @JsonBackReference
+  @JsonBackReference(value = "linkedUser")
   @ManyToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
   private User linkedUser;
 
   @JsonProperty("skills")
-  @JsonManagedReference
+  @JsonManagedReference(value = "skilledContact")
   @Valid
   @OneToMany(mappedBy = "skilledContact", targetEntity = SkillLevel.class, fetch = FetchType.LAZY)
   @OnDelete(action = OnDeleteAction.CASCADE)

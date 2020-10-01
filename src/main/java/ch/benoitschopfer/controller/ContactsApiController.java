@@ -18,8 +18,6 @@ import ch.benoitschopfer.service.UserDetailsImpl;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -82,11 +80,8 @@ public class ContactsApiController implements ContactsApi {
       contact = contactRepository.save(contact);
 
       String location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/contacts/{id}").buildAndExpand(contact.getId()).toUriString();
-      EntityModel<Contact> contactResource = new EntityModel<>(contact, Link.of(location, "self"));
 
-      return ResponseEntity
-        .created(new URI(location))
-        .body(contactResource);
+      return ResponseEntity.created(new URI(location)).body(contact);
     } catch (URISyntaxException e) {
       return ResponseEntity.badRequest().body("Unable to create a new contact");
     }
@@ -240,11 +235,8 @@ public class ContactsApiController implements ContactsApi {
             .path("/contacts/{contactId}/skills/{skillId}")
             .buildAndExpand(contactId, skillId)
             .toUriString();
-          EntityModel<SkillLevel> skillResource = new EntityModel<>(skillLevel, Link.of(location, "self"));
 
-          return ResponseEntity
-            .created(new URI(location))
-            .body(skillResource);
+          return ResponseEntity.created(new URI(location)).body(skillLevel);
         } catch (NoSuchElementException e) {
           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There is no contact with the id " + contactId + "!");
         }
@@ -258,11 +250,10 @@ public class ContactsApiController implements ContactsApi {
             .path("/contacts/{contactId}/skills/{skillId}")
             .buildAndExpand(contactId, skillId)
             .toUriString();
-          EntityModel<SkillLevel> skillResource = new EntityModel<>(skillLevel, Link.of(location, "self"));
 
           return ResponseEntity
             .created(new URI(location))
-            .body(skillResource);
+            .body(skillLevel);
         } catch (NoSuchElementException e) {
           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("You have no contact with the id " + contactId + "!");
         }

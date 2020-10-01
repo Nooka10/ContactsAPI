@@ -1,20 +1,23 @@
 package ch.benoitschopfer.model.other;
 
+import ch.benoitschopfer.service.UserDetailsImpl;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
-import java.util.List;
 
 public class JwtResponse implements Serializable {
+  @JsonProperty("accessToken")
   private final String token;
-  private final String type = "Bearer";
-  private final Long id;
-  private final String email;
-  private final List<String> roles;
 
-  public JwtResponse(String token, Long id, String email, List<String> roles) {
+  @JsonProperty("tokenType")
+  private final String tokenType = "Bearer";
+
+  @JsonProperty("user")
+  private final UserDetailsImpl user;
+
+  public JwtResponse(String token, UserDetailsImpl user) {
     this.token = token;
-    this.id = id;
-    this.email = email;
-    this.roles = roles;
+    this.user = user;
   }
 
   public String getAccessToken() {
@@ -22,19 +25,10 @@ public class JwtResponse implements Serializable {
   }
 
   public String getTokenType() {
-    return type;
+    return tokenType;
   }
 
-  public Long getId() {
-    return id;
+  private UserDetailsImpl getUser() {
+    return user;
   }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public List<String> getRoles() {
-    return roles;
-  }
-
 }

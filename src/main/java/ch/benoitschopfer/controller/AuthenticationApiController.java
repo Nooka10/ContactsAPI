@@ -1,7 +1,6 @@
 package ch.benoitschopfer.controller;
 
 import ch.benoitschopfer.configuration.JWT.JwtTokenUtil;
-import ch.benoitschopfer.error.MessageResponse;
 import ch.benoitschopfer.model.entity.Role;
 import ch.benoitschopfer.model.entity.User;
 import ch.benoitschopfer.model.mappers.UserMapper;
@@ -14,8 +13,7 @@ import ch.benoitschopfer.repository.UserRepository;
 import ch.benoitschopfer.service.UserDetailsImpl;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -76,9 +74,9 @@ public class AuthenticationApiController implements AuthenticationApi {
     try {
       authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
     } catch (DisabledException e) {
-      throw new Exception("USER_DISABLED", e);
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("This user is disabled");
     } catch (BadCredentialsException e) {
-      throw new Exception("INVALID_CREDENTIALS", e);
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -91,10 +89,7 @@ public class AuthenticationApiController implements AuthenticationApi {
       .map(item -> item.getAuthority())
       .collect(Collectors.toList());
 
-    return ResponseEntity.ok(new JwtResponse(jwt,
-      userDetails.getId(),
-      userDetails.getEmail(),
-      roles));
+    return ResponseEntity.ok(new JwtResponse(jwt, userDetails));
   }
 
   @Override
@@ -107,9 +102,7 @@ public class AuthenticationApiController implements AuthenticationApi {
   public ResponseEntity<?> register(@Valid RegisterRequest registerRequest) throws Exception {
     try {
       if (userRepository.existsByEmail(registerRequest.getEmail())) {
-        return ResponseEntity
-          .badRequest()
-          .body(new MessageResponse("Error: This email is already used!"));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: This email is already used!");
       }
 
       User user = userMapper.registerRequestToUser(registerRequest);
@@ -120,13 +113,10 @@ public class AuthenticationApiController implements AuthenticationApi {
       User savedUser = userRepository.save(user);
 
       String location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/users/{id}").buildAndExpand(savedUser.getId()).toUriString();
-      EntityModel<User> UserResource = new EntityModel<>(savedUser, Link.of(location, "self"));
 
-      login(new LoginRequest(registerRequest.getEmail(), registerRequest.getPassword()));
+      ResponseEntity login = login(new LoginRequest(registerRequest.getEmail(), registerRequest.getPassword()));
 
-      return ResponseEntity
-        .created(new URI(location))
-        .body(UserResource);
+      return ResponseEntity.created(new URI(location)).body(login.getBody());
     } catch (URISyntaxException e) {
       return ResponseEntity.badRequest().body("Unable to create " + registerRequest);
     }

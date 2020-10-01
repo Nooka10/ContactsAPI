@@ -1,12 +1,10 @@
 package ch.benoitschopfer.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -21,14 +19,14 @@ import java.util.Objects;
   @UniqueConstraint(columnNames={"skill_id", "contact_id"})
 })
 @Entity
-public class SkillLevel extends RepresentationModel<SkillLevel> {
+public class SkillLevel {
   @JsonProperty("id")
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   @JsonProperty("skill")
-  @JsonManagedReference
+  @JsonBackReference(value = "skill")
   @ManyToOne
   @JoinColumn(name = "skill_id", referencedColumnName = "id", nullable = false)
   @OnDelete(action = OnDeleteAction.NO_ACTION)
@@ -38,7 +36,7 @@ public class SkillLevel extends RepresentationModel<SkillLevel> {
   private long level;
 
   @JsonProperty("skilledContact")
-  @JsonBackReference
+  @JsonBackReference(value = "skilledContact")
   @ManyToOne
   @JoinColumn(name = "contact_id", referencedColumnName = "id", nullable = false)
   @OnDelete(action = OnDeleteAction.NO_ACTION)

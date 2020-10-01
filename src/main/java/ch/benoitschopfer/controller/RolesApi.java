@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-09-24T16:13:09.139748+02:00[Europe/Paris]")
 @Validated
-@Api(value = "roles", description = "the roles API", tags = "roles")
+@Api(value = "roles", tags = "roles")
 public interface RolesApi {
 
   default Optional<NativeWebRequest> getRequest() {
@@ -40,7 +40,7 @@ public interface RolesApi {
    * or This role already exist (status code 409)
    */
   @ApiOperation(value = "Adds a new role.", nickname = "addRole", notes = "Adds a new role in the system.", response = Role.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
+    @Authorization(value = "bearer", scopes = {
       @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
   }, tags = {"roles",})
@@ -50,7 +50,7 @@ public interface RolesApi {
     @ApiResponse(code = 409, message = "This role already exist.")})
   @PostMapping(
     value = "/roles",
-    produces = {"application/hal+json", "application/json"},
+    produces = {"application/json"},
     consumes = {"application/json"}
   )
   @PreAuthorize("hasRole('ADMIN')")
@@ -66,7 +66,7 @@ public interface RolesApi {
    * or bad input parameter (status code 400).
    */
   @ApiOperation(value = "Get all roles.", nickname = "getRoles", notes = "Returns all roles whose name contains the received string.", response = Role.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "oauth2", scopes = {
+    @Authorization(value = "bearer", scopes = {
       @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
     })
   }, tags = {"roles",})
@@ -75,7 +75,7 @@ public interface RolesApi {
     @ApiResponse(code = 400, message = "Bad input parameter.")})
   @GetMapping(
     value = "/roles",
-    produces = {"application/hal+json", "application/json"}
+    produces = {"application/json"}
   )
   @PreAuthorize("hasRole('ADMIN')")
   default ResponseEntity<Page<Role>> getRoles(Pageable pageable) {
