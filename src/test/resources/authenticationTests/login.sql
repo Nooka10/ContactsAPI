@@ -6,28 +6,38 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `address` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `firstname` varchar(255) NOT NULL,
-  `fullname` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL,
-  `mobilephone` varchar(255) NOT NULL,
-  `user_id` bigint NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKe07k4jcfdophemi6j1lt84b61` (`user_id`),
-  CONSTRAINT `FKe07k4jcfdophemi6j1lt84b61` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                           `id`          bigint       NOT NULL AUTO_INCREMENT,
+                           `address`     varchar(255) NOT NULL,
+                           `email`       varchar(255) NOT NULL,
+                           `firstname`   varchar(255) NOT NULL,
+                           `fullname`    varchar(255) NOT NULL,
+                           `lastname`    varchar(255) NOT NULL,
+                           `mobilephone` varchar(255) NOT NULL,
+                           `user_id`     bigint       NOT NULL,
+                           PRIMARY KEY (`id`),
+                           KEY `FKe07k4jcfdophemi6j1lt84b61` (`user_id`),
+                           CONSTRAINT `FKe07k4jcfdophemi6j1lt84b61` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Table structure for role
 -- ----------------------------
+-- ----------------------------
+-- Table structure for role
+-- ----------------------------
 DROP TABLE IF EXISTS `role`;
-CREATE TABLE `role` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `role`
+(
+    `id`   int NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `UK_ob8kqyqqgmefl0aco34akdhai` (`name`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 3
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of role

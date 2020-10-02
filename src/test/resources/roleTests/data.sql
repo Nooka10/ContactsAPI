@@ -19,10 +19,8 @@ CREATE TABLE `contact`
     KEY `FKe07k4jcfdophemi6j1lt84b61` (`user_id`),
     CONSTRAINT `FKe07k4jcfdophemi6j1lt84b61` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
-
 
 -- ----------------------------
 -- Table structure for role
@@ -41,7 +39,6 @@ CREATE TABLE `role`
   AUTO_INCREMENT = 3
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
-
 
 -- ----------------------------
 -- Records of role
@@ -64,7 +61,6 @@ CREATE TABLE `skill`
     PRIMARY KEY (`id`),
     UNIQUE KEY `UK_5ljf2l2h4odhtxrsuohlro4ir` (`name`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 
@@ -84,7 +80,6 @@ CREATE TABLE `skill_level`
     CONSTRAINT `FKdmsnatu3tok59kjbks8qgsl07` FOREIGN KEY (`contact_id`) REFERENCES `contact` (`id`) ON DELETE CASCADE,
     CONSTRAINT `FKk8yy30pvpxxp3etl7olmfesh6` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 
@@ -100,9 +95,21 @@ CREATE TABLE `user`
     PRIMARY KEY (`id`),
     UNIQUE KEY `UK_ob8kqyqqgmefl0aco34akdtpe` (`email`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
+  AUTO_INCREMENT = 3
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+BEGIN;
+INSERT INTO `user`
+VALUES (1, 'admin@owt.ch', '$2a$10$SbGVgg/YLbTUeS5HPt1c/uGe6C9h4/BVoA5wJ2f76/lGv1/kTVGgm');
+INSERT INTO `user`
+VALUES (2, 'user1@owt.ch', '$2a$10$PC.uL2YIcWNPAYo0VG2Qs.3FdBD/SpaF3cPsSUmKtnaibDyRl9THS');
+INSERT INTO `user`
+VALUES (3, 'user2@owt.ch', '$2a$10$sG/sGgW/0ECeG/v.h/rNJuTDXZLSXyRwvFEcyAoRTQ/VuQ5yFmBuu');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for user_roles
@@ -119,5 +126,17 @@ CREATE TABLE `user_roles`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of user_roles
+-- ----------------------------
+BEGIN;
+INSERT INTO `user_roles`
+VALUES (1, 1);
+INSERT INTO `user_roles`
+VALUES (2, 2);
+INSERT INTO `user_roles`
+VALUES (3, 2);
+COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

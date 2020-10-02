@@ -100,12 +100,15 @@ public class AuthenticationApiControllerIntegrationTests {
     assertEquals(1, user.getId());
     assertEquals("admin@owt.ch", user.getEmail());
     assertTrue(user.isAdmin());
+
+    ResponseEntity<String> logout = this.restTemplate.postForEntity(createUrl("/auth/logout"), null, String.class);
+    assertEquals(204, logout.getStatusCodeValue());
   }
 
   @Test
   @Sql(scripts = {"/authenticationTests/login.sql"})
   public void loginAsUser() {
-    LoginRequest loginRequest = new LoginRequest("user@owt.ch", "user");
+    LoginRequest loginRequest = new LoginRequest("user1@owt.ch", "user");
 
     ResponseEntity<JwtResponse> responseEntity = this.restTemplate.postForEntity(createUrl("/auth/login"), loginRequest, JwtResponse.class);
     assertEquals(200, responseEntity.getStatusCodeValue());
@@ -113,8 +116,11 @@ public class AuthenticationApiControllerIntegrationTests {
     assertEquals("Bearer", responseEntity.getBody().getTokenType());
     User user = responseEntity.getBody().getUser();
 
-    assertEquals(1, user.getId());
-    assertEquals("user@owt.ch", user.getEmail());
+    assertEquals(2, user.getId());
+    assertEquals("user1@owt.ch", user.getEmail());
     assertFalse(user.isAdmin());
+
+    ResponseEntity<String> logout = this.restTemplate.postForEntity(createUrl("/auth/logout"), null, String.class);
+    assertEquals(204, logout.getStatusCodeValue());
   }
 }

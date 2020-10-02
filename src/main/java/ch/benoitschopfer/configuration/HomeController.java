@@ -16,6 +16,4 @@ public class HomeController {
     public String index() {
         return "redirect:swagger-ui.html";
     }
-
-
 }

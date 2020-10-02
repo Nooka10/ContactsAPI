@@ -34,20 +34,29 @@ public interface RolesApi {
    * POST /roles : Adds a new role.
    * Adds a new role in the system.
    *
-   * @param role Name of the role to add (required)
+   * @param role Name of the role to add (required).
    * @return Role created (status code 201)
    * or Invalid input, received object is invalid (status code 400)
-   * or This role already exist (status code 409)
+   * or This role already exist (status code 409).
    */
-  @ApiOperation(value = "Adds a new role.", nickname = "addRole", notes = "Adds a new role in the system.", response = Role.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "bearer", scopes = {
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"roles",})
+  @ApiOperation(
+    value = "Adds a new role.",
+    nickname = "addRole",
+    notes = "Adds a new role in the system.",
+    response = Role.class,
+    responseContainer = "List",
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"roles"}
+  )
   @ApiResponses(value = {
     @ApiResponse(code = 201, message = "Role created.", response = Role.class, responseContainer = "List"),
     @ApiResponse(code = 400, message = "Invalid input, received object is invalid."),
-    @ApiResponse(code = 409, message = "This role already exist.")})
+    @ApiResponse(code = 409, message = "This role already exist.")
+  })
   @PostMapping(
     value = "/roles",
     produces = {"application/json"},
@@ -65,11 +74,19 @@ public interface RolesApi {
    * @return Returns all roles (status code 200)
    * or bad input parameter (status code 400).
    */
-  @ApiOperation(value = "Get all roles.", nickname = "getRoles", notes = "Returns all roles whose name contains the received string.", response = Role.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "bearer", scopes = {
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"roles",})
+  @ApiOperation(
+    value = "Get all roles.",
+    nickname = "getRoles",
+    notes = "Returns all roles whose name contains the received string.",
+    response = Role.class,
+    responseContainer = "List",
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"roles"}
+  )
   @ApiResponses(value = {
     @ApiResponse(code = 200, message = "Returns all roles whose name contains the received string.", response = Role.class, responseContainer = "List"),
     @ApiResponse(code = 400, message = "Bad input parameter.")})

@@ -5,8 +5,10 @@ import ch.benoitschopfer.model.mappers.RoleMapper;
 import ch.benoitschopfer.repository.RoleRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +54,8 @@ public class RolesApiController implements RolesApi {
         .body(savedRole);
     } catch (URISyntaxException e) {
       return ResponseEntity.badRequest().body("Unable to create " + roleName);
+    } catch (DataIntegrityViolationException e){
+      return ResponseEntity.status(HttpStatus.CONFLICT).body("This role already exist");
     }
   }
 
