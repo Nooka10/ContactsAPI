@@ -1,14 +1,16 @@
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.other.SkillAddOrUpdate;
 import ch.benoitschopfer.model.entity.Skill;
 import ch.benoitschopfer.model.mappers.SkillMapper;
+import ch.benoitschopfer.model.other.SkillAddOrUpdate;
 import ch.benoitschopfer.repository.SkillRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,6 +56,8 @@ public class SkillsApiController implements SkillsApi {
         .body(savedSkill);
     } catch (URISyntaxException e) {
       return ResponseEntity.badRequest().body("Unable to create " + skillAddOrUpdate);
+    } catch (DataIntegrityViolationException e) {
+      return ResponseEntity.status(HttpStatus.CONFLICT).body("This skill already exist.");
     }
   }
 
@@ -73,7 +77,9 @@ public class SkillsApiController implements SkillsApi {
   public ResponseEntity<Skill> getSkill(String name) {
     Optional<Skill> skill = skillRepository.findByName(name);
 
-    if (skill.isEmpty()) { return ResponseEntity.notFound().build(); }
+    if (skill.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
 
     return ResponseEntity.ok(skill.get());
   }

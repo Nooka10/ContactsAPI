@@ -5,13 +5,12 @@
  */
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.other.UserUpdate;
 import ch.benoitschopfer.model.entity.User;
+import ch.benoitschopfer.model.other.UserUpdate;
 import io.swagger.annotations.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -37,12 +36,18 @@ public interface UsersApi {
    * @param id Id of the user to delete (required).
    * @return User succesfully deleted (status code 204) or User not found (status code 404).
    */
-  @ApiOperation(value = "Delete an existing user.", nickname = "deleteUser", notes = "Delete the connected user. Only an admin can delete other user than himself.", authorizations = {
-    @Authorization(value = "bearer", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"users",})
+  @ApiOperation(
+    value = "Delete an existing user.",
+    nickname = "deleteUser",
+    notes = "Delete the connected user. Only an admin can delete other user than himself.",
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"users"}
+  )
   @ApiResponses(value = {
     @ApiResponse(code = 204, message = "User succesfully deleted."),
     @ApiResponse(code = 404, message = "User not found.")})
@@ -52,7 +57,6 @@ public interface UsersApi {
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<Void> deleteUser(@ApiParam(value = "Id of the user to delete.", required = true) @PathVariable("id") long id) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
   }
 
 
@@ -63,12 +67,19 @@ public interface UsersApi {
    * @param id Id of the user to fetch (required).
    * @return search results matching criteria (status code 200) or bad input parameter (status code 400).
    */
-  @ApiOperation(value = "Get user by id.", nickname = "getUser", notes = "Returns the user corresponding to the received name. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.", response = User.class, authorizations = {
-    @Authorization(value = "bearer", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"users",})
+  @ApiOperation(
+    value = "Get user by id.",
+    nickname = "getUser",
+    notes = "Returns the user corresponding to the received name. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.",
+    response = User.class,
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"users"}
+  )
   @ApiResponses(value = {
     @ApiResponse(code = 200, message = "The user corresponding to the received id.", response = User.class),
     @ApiResponse(code = 400, message = "Bad input parameter.")})
@@ -78,17 +89,7 @@ public interface UsersApi {
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   default ResponseEntity<User> getUser(@ApiParam(value = "Id of the user to fetch", required = true) @PathVariable("id") long id) {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"password\" : \"password\", \"rights\" : \"rights\", \"id\" : 0, \"email\" : \"email\", \"contacts\" : [ { \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }, { \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" } ] }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
   }
 
 
@@ -99,11 +100,19 @@ public interface UsersApi {
    * @param email Returns all users whose email contains the received string (optional).
    * @return Every users whose email contains the received string (status code 200) or bad input parameter (status code 400).
    */
-  @ApiOperation(value = "Get all users.", nickname = "getUsers", notes = "By passing in the appropriate options, admins can search for specifics users in the system.", response = User.class, responseContainer = "List", authorizations = {
-    @Authorization(value = "bearer", scopes = {
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"users",})
+  @ApiOperation(
+    value = "Get all users.",
+    nickname = "getUsers",
+    notes = "By passing in the appropriate options, admins can search for specifics users in the system.",
+    response = User.class,
+    responseContainer = "List",
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"users"}
+  )
   @ApiResponses(value = {
     @ApiResponse(code = 200, message = "Every users whose email contains the received string.", response = User.class, responseContainer = "List"),
     @ApiResponse(code = 400, message = "Bad input parameter.")})
@@ -112,18 +121,10 @@ public interface UsersApi {
     produces = {"application/json"}
   )
   @PreAuthorize("hasRole('ADMIN')")
-  default ResponseEntity<Page<User>> getUsers(@ApiParam(value = "Returns all users whose email contains the received string.") @Valid @RequestParam(value = "email", required = false) String email, Pageable Pageable) {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"password\" : \"password\", \"rights\" : \"rights\", \"id\" : 0, \"email\" : \"email\", \"contacts\" : [ { \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }, { \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" } ] }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
+  default ResponseEntity<Page<User>> getUsers(
+    @ApiParam(value = "Returns all users whose email contains the received string.") @Valid @RequestParam(value = "email", required = false) String email,
+    Pageable Pageable) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
   }
 
 
@@ -131,18 +132,25 @@ public interface UsersApi {
    * PUT /users/{id} : Update an existing user.
    * Update the connected user. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.
    *
-   * @param id           Id of the user to update (required).
+   * @param id         Id of the user to update (required).
    * @param userUpdate User to update (required).
    * @return User succesfully updated (status code 200) or Invalid user supplied (status code 400) or User not found (status code 404).
    */
-  @ApiOperation(value = "Update an existing user.", nickname = "updateUser", notes = "Update the connected user. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.", response = User.class, authorizations = {
-    @Authorization(value = "bearer", scopes = {
-      @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
-      @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
-    })
-  }, tags = {"users",})
+  @ApiOperation(
+    value = "Update an existing user.",
+    nickname = "updateUser",
+    notes = "Update the connected user. It can only be himself if the connected user is a normal user. It can be any user if the connected user is an admin.",
+    response = User.class,
+    authorizations = {
+      @Authorization(value = "bearer", scopes = {
+        @AuthorizationScope(scope = "user", description = "Grants read/write access to user resources (his user info, his contacts and their skills)."),
+        @AuthorizationScope(scope = "admin", description = "Grants read and write access to anything (his/others contacts and their skills, skills, users).")
+      })
+    },
+    tags = {"users"}
+  )
   @ApiResponses(value = {
-    @ApiResponse(code = 200, message = "User succesfully updated.", response = User.class, responseContainer = "List"),
+    @ApiResponse(code = 200, message = "User succesfully updated.", response = User.class),
     @ApiResponse(code = 400, message = "Invalid user supplied."),
     @ApiResponse(code = 404, message = "User not found.")})
   @PutMapping(
@@ -151,17 +159,9 @@ public interface UsersApi {
     consumes = {"application/json"}
   )
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-  default ResponseEntity<User> updateUser(@ApiParam(value = "Id of the user to update.", required = true) @PathVariable("id") long id,
-                                          @ApiParam(value = "User to update.", required = true) @RequestBody(required = true) UserUpdate userUpdate) {
-    getRequest().ifPresent(request -> {
-      for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
-        if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-          String exampleString = "{ \"password\" : \"password\", \"rights\" : \"rights\", \"id\" : 0, \"email\" : \"email\", \"contacts\" : [ { \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" }, { \"skills\" : [ { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 }, { \"level\" : 5.637376656633329, \"skill\" : { \"name\" : \"SpringBoot\", \"id\" : 5, \"usersLevels\" : [ null, null ] }, \"id\" : 1 } ], \"firstname\" : \"firstname\", \"address\" : \"address\", \"mobilephone\" : \"mobilephone\", \"id\" : 6, \"fullname\" : \"fullname\", \"email\" : \"email\", \"lastname\" : \"lastname\" } ] }";
-          ApiUtil.setExampleResponse(request, "application/json", exampleString);
-          break;
-        }
-      }
-    });
+  default ResponseEntity<User> updateUser(
+    @ApiParam(value = "Id of the user to update.", required = true) @PathVariable("id") long id,
+    @ApiParam(value = "User to update.", required = true) @RequestBody(required = true) UserUpdate userUpdate) {
     return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
   }
 }

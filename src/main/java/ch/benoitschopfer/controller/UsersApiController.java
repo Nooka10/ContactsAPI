@@ -1,8 +1,8 @@
 package ch.benoitschopfer.controller;
 
-import ch.benoitschopfer.model.other.UserUpdate;
 import ch.benoitschopfer.model.entity.User;
 import ch.benoitschopfer.model.mappers.UserMapper;
+import ch.benoitschopfer.model.other.UserUpdate;
 import ch.benoitschopfer.repository.UserRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,9 @@ public class UsersApiController implements UsersApi {
   public ResponseEntity<User> getUser(long id) {
     Optional<User> user = userRepository.findById(id);
 
-    if (user.isEmpty()) { return ResponseEntity.notFound().build(); }
+    if (user.isEmpty()) {
+      return ResponseEntity.notFound().build();
+    }
 
     return ResponseEntity.ok(user.get());
   }
@@ -72,7 +74,6 @@ public class UsersApiController implements UsersApi {
 
   @Override
   public ResponseEntity<User> updateUser(long id, UserUpdate userUpdate) {
-    // userUpdate param is willingly not validated with @Valid
     Optional<User> optionalUser = userRepository.findById(id);
 
     if (optionalUser.isEmpty()) {
